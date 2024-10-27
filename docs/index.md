@@ -18,7 +18,8 @@ order: 0
 
 ## Intended users and user stories
 
-[//]: # (TODO Write a bullet list here, including at least 2 different types of intended users. Along with each type of intended user, include at least 1 _user story_. A user story is usually just 1 simple sentence &#40;no more than 2 sentences&#41;, in the voice of the intended user, stating a specific task that the user performs using the app, and the benefit that will be obtained. See rubric for required form.)
+[//]: # (If you are a person who likes to play strategy games while with some friends or in your free time, you may want to play fireman in order to keep everyone busy while having fun and learn something about real fires.)
+[//]: # (As a person who has always played board games with strategy involved, I enjoy a game that can be quick yet entertaining, I play fireman to keep my mind busy as well as allowing my brain to work through tough problems.)
 
 ## Functionality
 
@@ -26,7 +27,7 @@ order: 0
 
 ## Persistent data
 
-[//]: # (TODO Using a bullet list, list what content will be maintained in server-side storage. This should include any information that users of your app would expect to be maintained &#40;i.e., without connection to a server&#41; across multiple sessions of use.)
+[//]: # (For our server side application we will be providing Google sign in so that players can be unique and keep trac of there past scores and wins, as well as being able to play a turn at any time with another player.
 
 ## Device/external services
 
