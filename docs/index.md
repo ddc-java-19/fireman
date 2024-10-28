@@ -28,11 +28,11 @@ As a person who has always played board games with strategy involved, I enjoy a 
 
 ## Persistent data
 Persistent Data:
-*Game Board Layout
-*Win/Loss Records Against Friends
-*User Profiles and Authentication
-*Game Settings
-*Game Progress for Incomplete Games
+* Game Board Layout
+* Win/Loss Records Against Friends
+* User Profiles and Authentication
+* Game Settings
+* Game Progress for Incomplete Games
 
 ## Device/external services
 
