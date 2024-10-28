@@ -14,4 +14,4 @@ order: 20
 
 ## UML class diagram
 
-[//]: # [![UML Class Diagram](img/Server-Firemen-UML.drawio)](pdf/Server-Fireman-UML.pdf)
+[![UML Class Diagram](img/Server-Firemen-UML.drawio)](pdf/Server-Fireman-UML.pdf)
