@@ -14,7 +14,9 @@ order: 0
 
 ## Summary
 
-[//]: # (TODO Replace this paragraph with one or more paragraphs summarizing the purpose and operation of the Android app you propose to develop in this project.)
+[//]: # (Project description: In Fireman, two players compete with opposite goals: the Arsonist aims to ignite fires across the game board, while the other plays as the Fireman trying to extinguish those flames. The game board is divided into tiles, each representing a potential fire zone, which can either be set ablaze or kept safe depending on the players' actions. Each player has unique abilities and strategies designed to support their role, making each turn a strategic attempt to either grow or shrink the active fires on the board.)
+
+[//]: # (The game continues until one player secures a majority of the tiles in their favor. If the Arsonist manages to spread flames over more tiles by the end of the game, they win. However, the fireman player can secure victory by containing or putting out every active fire, achieving complete control over the board. With plenty of room for strategy, Fireman combines fast-paced decisions with competitive, role-based play, challenging players to outmaneuver each other and gain control of the game board.)
 
 ## Intended users and user stories
 
@@ -26,7 +28,12 @@ order: 0
 
 ## Persistent data
 
-[//]: # (TODO Using a bullet list, list what content will be maintained in server-side storage. This should include any information that users of your app would expect to be maintained &#40;i.e., without connection to a server&#41; across multiple sessions of use.)
+[//]: # (Persistent Data:
+*Game Board Layout
+*Win/Loss Records Against Friends
+*User Profiles and Authentication
+*Game Settings
+*Game Progress for Incomplete Games)
 
 ## Device/external services
 
