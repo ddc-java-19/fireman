@@ -21,8 +21,11 @@ The game continues until one player secures a majority of the tiles in their fav
 ## Intended users and user stories
 
 * Person who likes strategy games:
+
 As a person who likes to play strategy games while with some friends or in your free time, I want to play fireman in order to keep everyone busy while having fun and learn something about real fires.
+
 * Person who likes strategy games:
+
 As a person who has always played board games with strategy involved, I enjoy a game that can be quick yet entertaining, I play fireman to keep my mind busy as well as allowing my brain to work through tough problems.
 
 ## Functionality
