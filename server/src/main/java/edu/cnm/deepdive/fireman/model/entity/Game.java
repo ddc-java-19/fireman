@@ -1,13 +1,18 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
+import edu.cnm.deepdive.fireman.model.Wind;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.time.Instant;
@@ -16,6 +21,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @SuppressWarnings({"JpaDataSourceORMInspection", "unused", "DefaultAnnotationParam"})
 @Entity
+@Table(
+    indexes = {
+        @Index(columnList = "score, finished")
+    }
+)
 public class Game {
 
   @Id
@@ -40,6 +50,10 @@ public class Game {
 
   @Column(nullable = false, updatable = true)
   private boolean firemansTurn;
+
+  @Enumerated(EnumType.ORDINAL)
+  @Column(nullable = false, updatable = true)
+  private Wind wind;
 
   @ManyToOne(fetch = FetchType.EAGER, optional = true)
   @JoinColumn(name = "fireman_id", nullable = true, updatable = true)
@@ -103,6 +117,14 @@ public class Game {
 
   public boolean isCompleted() {
     return finished != null;
+  }
+
+  public Wind getWind() {
+    return wind;
+  }
+
+  public void setWind(Wind wind) {
+    this.wind = wind;
   }
 
   @PrePersist

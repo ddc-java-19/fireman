@@ -1,51 +1,38 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
-@Entity(
-    tableName = "move",
-    foreignKeys = {
-        @ForeignKey(entity = Game.class,
-            parentColumns = {"game_id"}, childColumns = {"game_id"},
-            onDelete = ForeignKey.CASCADE),
-        @ForeignKey(entity = User.class,
-            parentColumns = {"user_id"}, childColumns = {"user_id"},
-            onDelete = ForeignKey.CASCADE)
-    },
-    indices = {
-        @Index(value = {"game_id"}),
-        @Index(value = {"user_id"})
-    }
-)
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Move {
 
-  @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "move_id")
-  private long moveId;
+  @Id
+  @GeneratedValue
+  @Column(name = "move_id", nullable = false, updatable = false)
+  private long id;
 
-  @ColumnInfo(name = "row")
+  @Column(nullable = false, updatable = true)
   private int row;
 
-  @ColumnInfo(name = "column")
+  @Column(nullable = false, updatable = true)
   private int column;
 
-  @ColumnInfo(name = "game_id", index = true)
-  private long gameId;
+  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @JoinColumn(name = "game_id", nullable = false, updatable = false)
+  private Game game;
 
-  @ColumnInfo(name = "user_id", index = true)
-  private long userId;
+  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  private User user;
 
-  // Getters and Setters
-  public long getMoveId() {
-    return moveId;
-  }
-
-  public void setMoveId(long moveId) {
-    this.moveId = moveId;
+  public long getId() {
+    return id;
   }
 
   public int getRow() {
@@ -64,19 +51,19 @@ public class Move {
     this.column = column;
   }
 
-  public long getGameId() {
-    return gameId;
+  public Game getGame() {
+    return game;
   }
 
-  public void setGameId(long gameId) {
-    this.gameId = gameId;
+  public void setGame(Game game) {
+    this.game = game;
   }
 
-  public long getUserId() {
-    return userId;
+  public User getUser() {
+    return user;
   }
 
-  public void setUserId(long userId) {
-    this.userId = userId;
+  public void setUser(User user) {
+    this.user = user;
   }
 }

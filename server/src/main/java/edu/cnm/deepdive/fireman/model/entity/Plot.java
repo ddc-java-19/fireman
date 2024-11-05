@@ -1,30 +1,37 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 @Entity
 public class Plot {
 
   @Id
-  @Column(name = "plot_id")
+  @GeneratedValue
+  @Column(name = "plot_id", nullable = false, updatable = false)
   private Long id;
 
-  @Column
+  @Column(nullable = false, updatable = true)
   private boolean charred;
 
-  @Column
+  @Column(nullable = false, updatable = true)
   private boolean wet;
 
-  @Column
+  @Column(nullable = false, updatable = true)
   private boolean burnable;
 
-  @Column
-  private long wind;
-
-  @Column
+  @Column(nullable = false, updatable = true)
   private int row;
 
-  @Column
+  @Column(nullable = false, updatable = true)
   private int column;
+
+  public Long getId() {
+    return id;
+  }
 
   public boolean isCharred() {
     return charred;
@@ -48,14 +55,6 @@ public class Plot {
 
   public void setBurnable(boolean burnable) {
     this.burnable = burnable;
-  }
-
-  public long getWind() {
-    return wind;
-  }
-
-  public void setWind(long wind) {
-    this.wind = wind;
   }
 
   public int getRow() {
