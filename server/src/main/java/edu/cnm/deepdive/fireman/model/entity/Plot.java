@@ -23,10 +23,10 @@ public class Plot {
   @Column(nullable = false, updatable = true)
   private boolean burnable;
 
-  @Column(nullable = false, updatable = true)
+  @Column(name = "row_number", nullable = false, updatable = true)
   private int row;
 
-  @Column(nullable = false, updatable = true)
+  @Column(name = "column_number", nullable = false, updatable = true)
   private int column;
 
   public Long getId() {
