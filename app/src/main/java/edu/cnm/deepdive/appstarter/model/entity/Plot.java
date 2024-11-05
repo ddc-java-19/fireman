@@ -1,42 +1,78 @@
 package edu.cnm.deepdive.appstarter.model.entity;
 
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = "plot", indices = {
-
-},
-    foreignKeys =
-        @ForeignKey(entity = User.class,
-            parentColumns = {"user_id"}, childColumns = {"user_id"},
-            onDelete = ForeignKey.CASCADE)
-    )
+@Entity
 public class Plot {
 
-  @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "plot_id")
+  @Id
+  @Column(name = "plot_id")
   private Long id;
 
-  @ColumnInfo(name = "charred")
+  @Column
   private boolean charred;
 
-  @ColumnInfo(name = "wet")
+  @Column
   private boolean wet;
 
-  @ColumnInfo(name = "burnable")
+  @Column
   private boolean burnable;
 
-  @ColumnInfo(name = "wind")
+  @Column
   private long wind;
 
-  @ColumnInfo(name = "row")
+  @Column
   private int row;
 
-  @ColumnInfo(name = "column")
+  @Column
   private int column;
 
+  public boolean isCharred() {
+    return charred;
+  }
+
+  public void setCharred(boolean charred) {
+    this.charred = charred;
+  }
+
+  public boolean isWet() {
+    return wet;
+  }
+
+  public void setWet(boolean wet) {
+    this.wet = wet;
+  }
+
+  public boolean isBurnable() {
+    return burnable;
+  }
+
+  public void setBurnable(boolean burnable) {
+    this.burnable = burnable;
+  }
+
+  public long getWind() {
+    return wind;
+  }
+
+  public void setWind(long wind) {
+    this.wind = wind;
+  }
+
+  public int getRow() {
+    return row;
+  }
+
+  public void setRow(int row) {
+    this.row = row;
+  }
+
+  public int getColumn() {
+    return column;
+  }
+
+  public void setColumn(int column) {
+    this.column = column;
+  }
 }
