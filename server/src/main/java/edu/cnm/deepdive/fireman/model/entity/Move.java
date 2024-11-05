@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.appstarter.model.entity;
+package edu.cnm.deepdive.fireman.model.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

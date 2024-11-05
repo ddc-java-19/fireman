@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.capstoneproject;
+package edu.cnm.deepdive.fireman;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
