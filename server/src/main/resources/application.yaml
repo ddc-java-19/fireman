@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: fireman
+  profiles:
+    active:
+      - service
+      - local
+  datasource:
+    url: "jdbc:h2:file:./db/fireman"
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always

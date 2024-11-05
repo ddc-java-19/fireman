@@ -1,10 +1,10 @@
-package edu.cnm.deepdive.capstoneproject;
+package edu.cnm.deepdive.fireman;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CapstoneProjectApplicationTests {
+class FiremanApplicationTests {
 
 	@Test
 	void contextLoads() {
