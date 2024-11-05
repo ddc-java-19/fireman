@@ -7,21 +7,19 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "plot" {
-    foreignKeys = {
+@Entity(tableName = "plot", indices = {
+
+},
+    foreignKeys =
         @ForeignKey(entity = User.class,
             parentColumns = {"user_id"}, childColumns = {"user_id"},
             onDelete = ForeignKey.CASCADE)
-        // TODO: 11/4/2024 Fix red area, not sure why its red.
-    }
-)
+    )
 public class Plot {
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "plot_id")
   private Long id;
-
-  @ForeignKey()
 
   @ColumnInfo(name = "charred")
   private boolean charred;
