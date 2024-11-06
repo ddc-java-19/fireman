@@ -16,9 +16,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.time.Instant;
-import java.util.List;
 import java.util.UUID;
-import javax.swing.text.Position;
 import org.hibernate.annotations.CreationTimestamp;
 
 @SuppressWarnings({"JpaDataSourceORMInspection", "unused", "DefaultAnnotationParam"})
@@ -56,10 +54,6 @@ public class Game {
   @Enumerated(EnumType.ORDINAL)
   @Column(nullable = false, updatable = true)
   private Wind wind;
-
-  @SuppressWarnings("JpaAttributeTypeInspection")
-  @Column(nullable = false, updatable = true)
-  private List<Position> position;
 
   @ManyToOne(fetch = FetchType.EAGER, optional = true)
   @JoinColumn(name = "fireman_id", nullable = true, updatable = true)
@@ -131,14 +125,6 @@ public class Game {
 
   public void setWind(Wind wind) {
     this.wind = wind;
-  }
-
-  public List<Position> getPosition() {
-    return position;
-  }
-
-  public void setPosition(List<Position> position) {
-    this.position = position;
   }
 
   @PrePersist
