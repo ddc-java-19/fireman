@@ -17,10 +17,10 @@ public class Move {
   @Column(name = "move_id", nullable = false, updatable = false)
   private long id;
 
-  @Column(nullable = false, updatable = true)
+  @Column(name = "row_number", nullable = false, updatable = true)
   private int row;
 
-  @Column(nullable = false, updatable = true)
+  @Column(name = "column_number", nullable = false, updatable = true)
   private int column;
 
   @ManyToOne(optional = false, fetch = FetchType.EAGER)

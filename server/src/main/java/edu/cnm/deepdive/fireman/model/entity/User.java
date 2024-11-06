@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.time.Instant;
@@ -20,11 +21,14 @@ import java.util.stream.Stream;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
+@Table(
+    name = "user_profile"
+)
 public class User {
 
   @Id
   @GeneratedValue
-  @Column(nullable = false, updatable = false)
+  @Column(name= "user_profile_id", nullable = false, updatable = false)
   private Long id;
 
   @CreationTimestamp
