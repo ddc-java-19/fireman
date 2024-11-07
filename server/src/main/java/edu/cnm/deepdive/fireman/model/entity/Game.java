@@ -120,6 +120,7 @@ public class Game {
   }
 
   public Wind getWind() {
+
     return wind;
   }
 

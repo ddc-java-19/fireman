@@ -15,3 +15,7 @@ order: 20
 ## UML class diagram
 
 [![UML Class Diagram](img/FiremanUML.svg)](pdf/FiremanUML.pdf)
+
+--
+
+[![Entity Relationship Diagram (ERD)](img/fireman-server-erd.svg)](pdf/fireman-server-erd.pdf)
