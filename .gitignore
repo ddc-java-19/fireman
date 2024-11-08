@@ -1,5 +1,5 @@
-*.local.yaml
-*.local.yml
+*-local.yaml
+*-local.yml
 
 ### IntelliJ/Android Studio ###
 
