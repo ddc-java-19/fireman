@@ -20,6 +20,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 import org.hibernate.annotations.CreationTimestamp;
 
+@SuppressWarnings({"JpaDataSourceORMInspection", "DefaultAnnotationParam"})
 @Entity
 @Table(
     name = "user_profile"

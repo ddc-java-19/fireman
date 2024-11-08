@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
+@SuppressWarnings({"JpaDataSourceORMInspection", "unused", "DefaultAnnotationParam"})
 @Entity
 public class Plot {
 

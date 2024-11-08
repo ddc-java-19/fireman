@@ -19,7 +19,8 @@ import java.time.Instant;
 import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 
-@SuppressWarnings({"JpaDataSourceORMInspection", "unused", "DefaultAnnotationParam"})
+@SuppressWarnings({"JpaDataSourceORMInspection", "unused", "DefaultAnnotationParam",
+    "SpellCheckingInspection"})
 @Entity
 @Table(
     indexes = {
