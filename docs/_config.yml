@@ -8,15 +8,11 @@ titles_from_headings:
 prev_next_navigation:
 - bottom
 
-# TODO Modify the contents below for the specific project. NOTE THE INDENTATION!
-
-title: "Android App Starter"
-description: "Trust me, it'll be cool!"
-
-# TODO List team members in the author.name property.
+title: "Fireman"
+description: "As a Fireman, extinguish the flames the Arsonist creates."
 
 author:
-  name: "DDC Student"
+  name: "Christian Gonzalez, Matthew Page"
 
 # Do not change the following line.
   copyright: true
