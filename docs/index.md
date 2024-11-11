@@ -14,19 +14,19 @@ order: 0
 
 ## Summary
 
-In Fireman, two players compete with opposite goals: the Arsonist aims to ignite fires across the game board, while the other plays as the Fireman trying to extinguish those flames. The game board is divided into tiles, each representing a potential fire zone, which can either be set ablaze or kept safe depending on the players' actions. Each player has unique abilities and strategies designed to support their role, making each turn a strategic attempt to either grow or shrink the active fires on the board.
+> In Fireman, two players compete with opposite goals: the Arsonist aims to ignite fires across the game board, while the other plays as the Fireman trying to extinguish those flames. The game board is divided into tiles, each representing a potential fire zone, which can either be set ablaze or kept safe depending on the players' actions. Each player has unique abilities and strategies designed to support their role, making each turn a strategic attempt to either grow or shrink the active fires on the board.
 
-The game continues until one player secures a majority of the tiles in their favor. If the Arsonist manages to spread flames over more tiles by the end of the game, they win. However, the fireman player can secure victory by containing or putting out every active fire, achieving complete control over the board. With plenty of room for strategy, Fireman combines fast-paced decisions with competitive, role-based play, challenging players to outmaneuver each other and gain control of the game board.
+> The game continues until one player secures a majority of the tiles in their favor. If the Arsonist manages to spread flames over more tiles by the end of the game, they win. However, the fireman player can secure victory by containing or putting out every active fire, achieving complete control over the board. With plenty of room for strategy, Fireman combines fast-paced decisions with competitive, role-based play, challenging players to outmaneuver each other and gain control of the game board.
 
 ## Intended users and user stories
 
-* Person who likes playing games with friends:
++ Person who likes playing games with friends:
 
-As a person who likes to play strategy games while with some friends or in your free time, I want to play fireman in order to keep everyone busy while having fun and learn something about real fires.
+    > As a person who likes to play strategy games while with some friends or in your free time, I want to play fireman in order to keep everyone busy while having fun and learn something about real fires.
 
-* Person who likes strategy games:
++ Person who likes strategy games:
 
-As a person who has always played board games with strategy involved, I enjoy a game that can be quick yet entertaining, I play fireman to keep my mind busy as well as allowing my brain to work through tough problems.
+    > As a person who has always played board games with strategy involved, I enjoy a game that can be quick yet entertaining, I play fireman to keep my mind busy as well as allowing my brain to work through tough problems.
 
 ## Functionality
 
