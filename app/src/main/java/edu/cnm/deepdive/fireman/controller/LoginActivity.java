@@ -2,27 +2,56 @@ package edu.cnm.deepdive.fireman.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.snackbar.Snackbar;
+import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.fireman.R;
 import edu.cnm.deepdive.fireman.databinding.ActivityLoginBinding;
+import edu.cnm.deepdive.fireman.viewmodel.LoginViewModel;
 
-
+@AndroidEntryPoint
 public class LoginActivity extends AppCompatActivity {
 
   private ActivityLoginBinding binding;
+  private LoginViewModel viewModel;
+  private ActivityResultLauncher<Intent> launcher;
+  private boolean silent;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    binding = ActivityLoginBinding.inflate(getLayoutInflater());
-    // TODO: 11/7/2024 Attach listeners to ui widgets.
-    setContentView(binding.getRoot());
+    viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+    getLifecycle().addObserver(viewModel);
+    launcher = registerForActivityResult(new StartActivityForResult(), viewModel::completeSignIn);
+    silent = true;
+    viewModel
+        .getAccount()
+        .observe(this, this::handleAccount);
+    viewModel
+        .getThrowable()
+        .observe(this, this::handleFailure);
   }
 
-  // TODO: 11/7/2024 Define a method to start login process.
+  private void handleAccount(GoogleSignInAccount account) {
+    if (account != null) {
+      openMainActivity();
+    }
+  }
 
-  // TODO: 11/7/2024 Define a method to handle result of login process.
+  private void handleFailure(Throwable throwable) {
+    if (silent) {
+      silent = false;
+      binding = ActivityLoginBinding.inflate(getLayoutInflater());
+      binding.signIn.setOnClickListener((v) -> viewModel.startSignIn(launcher));
+      setContentView(binding.getRoot());
+    } else {
+      informAuthenticationFailure();
+    }
+  }
 
   private void openMainActivity() {
     Intent intent = new Intent(this, MainActivity.class)
@@ -34,4 +63,5 @@ public class LoginActivity extends AppCompatActivity {
     Snackbar.make(binding.getRoot(), R.string.authentication_failure_message, Snackbar.LENGTH_LONG)
         .show();
   }
+
 }
