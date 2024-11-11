@@ -1,0 +1,42 @@
+<resources>
+
+  <string name="reset">Reset</string>
+  <string name="settings_title">Settings</string>
+  <string name="sign_out_title">Sign out</string>
+  <string name="new_game_title">Start new game</string>
+
+  <string name="box_size_key">box_size</string>
+  <string name="box_size_title">Box size</string>
+
+  <string name="night_mode_key">night_mode</string>
+  <string name="night_mode_title">Dark mode</string>
+  <string name="night_mode_default">system</string>
+  <string name="move_number_header">#</string>
+  <string name="tile_header">Tile</string>
+  <string name="from_header">From\n(row, col)</string>
+  <string name="to_header">To\n(row, col)</string>
+
+  <string name="position_format">(%1$d, %2$d)</string>
+
+  <string name="move_count_format">Moves: %d</string>
+  <string name="rank_header">Rank</string>
+  <string name="moves_header">Moves</string>
+  <string name="duration_header">Duration</string>
+  <string name="completed_header">Completed</string>
+  <string name="duration_format">%1$02d:%2$02d</string>
+  <string name="scores_label">Scores\n</string>
+  <string name="game_label">Play</string>
+  <string name="authentication_failure_message">Unable to sign in with provided credentials.</string>
+
+  <string-array name="night_mode_values">
+    <item>@string/night_mode_default</item>
+    <item>yes</item>
+    <item>no</item>
+  </string-array>
+  <string-array name="night_mode_entries">
+    <item>Use device setting</item>
+    <item>On</item>
+    <item>Off</item>
+  </string-array>
+
+</resources>

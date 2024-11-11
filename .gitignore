@@ -1,3 +1,6 @@
+*-local.yaml
+*-local.yml
+
 ### IntelliJ/Android Studio ###
 
 .idea/**/*

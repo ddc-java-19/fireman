@@ -111,6 +111,8 @@ dependencies {
 
     // Room annotation processor, runtime library, and ReactiveX integration
     implementation(libs.room.runtime)
+    implementation(project(":server"))
+    implementation(libs.activity)
     annotationProcessor(libs.room.compiler)
     implementation(libs.room.rx.java)
 
@@ -160,7 +162,7 @@ dependencies {
 }
 
 roomDdl {
-    source.set(project.file("$projectDir/schemas/edu.cnm.deepdive.appstarter.service.LocalDatabase/1.json"))
+    source.set(project.file("$projectDir/schemas/edu.cnm.deepdive.fireman.service.FiremanDatabase/1.json"))
     destination.set(project.file("$projectDir/../docs/sql/ddl.sql"))
 }
 
