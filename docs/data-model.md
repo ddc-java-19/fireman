@@ -18,4 +18,6 @@ order: 20
 
 --
 
+## ERD class diagram
+
 [![Entity Relationship Diagram (ERD)](img/fireman-server-erd.svg)](pdf/fireman-server-erd.pdf)
