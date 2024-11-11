@@ -4,12 +4,12 @@
 
   <uses-permission android:name="android.permission.INTERNET"/>
 
+  <!--    android:roundIcon="@mipmap/fireman_launcher_round"-->
+  <!--    android:icon="@mipmap/fireman_launcher"-->
   <application
     android:allowBackup="false"
-    android:icon="@mipmap/fireman_launcher"
     android:label="@string/app_name"
     android:name="edu.cnm.deepdive.fireman.FiremanApplication"
-    android:roundIcon="@mipmap/fireman_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
     tools:ignore="AllowBackup,DataExtractionRules">
@@ -26,10 +26,10 @@
 
     </activity>
 
-    <activity
-      android:exported="false"
-      android:name=".controller.MainActivity"
-      android:theme="@style/AppTheme.NoActionBar"/>
+    <!--    <activity-->
+    <!--      android:exported="false"-->
+    <!--      android:name=".controller.MainActivity"-->
+    <!--      android:theme="@style/AppTheme.NoActionBar"/>-->
 
   </application>
 
