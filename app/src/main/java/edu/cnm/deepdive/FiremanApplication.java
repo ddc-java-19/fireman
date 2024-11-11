@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package edu.cnm.deepdive.fireman;
+package edu.cnm.deepdive;
 
 import android.app.Application;
 import dagger.hilt.android.HiltAndroidApp;
