@@ -1,7 +1,5 @@
 package edu.cnm.deepdive.fireman.service;
 
-//import static android.os.Build.VERSION_CODES.R;
-
 import android.content.Context;
 import android.content.Intent;
 import androidx.activity.result.ActivityResult;
