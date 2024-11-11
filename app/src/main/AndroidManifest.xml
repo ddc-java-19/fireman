@@ -8,7 +8,7 @@
     android:allowBackup="false"
     android:icon="@mipmap/fireman_launcher"
     android:label="@string/app_name"
-    android:name="edu.cnm.deepdive.FiremanApplication"
+    android:name="edu.cnm.deepdive.fireman.FiremanApplication"
     android:roundIcon="@mipmap/fireman_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
