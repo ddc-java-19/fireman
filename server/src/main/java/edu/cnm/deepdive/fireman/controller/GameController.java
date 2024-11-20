@@ -49,5 +49,4 @@ public class GameController {
         .findByExternalKeyAndUser(externalKey, userService.getCurrent())
         .orElseThrow();
 
-
 }
