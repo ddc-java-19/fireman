@@ -21,16 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class GameController {
 
   private final AbstractGameService gameService;
-  private final UserController userController;
   private final UserService userService;
-  private final GameRepository gameRepository;
 
-  public GameController(AbstractGameService gameService, UserController userController,
-      UserService userService, GameRepository gameRepository) {
+  public GameController(AbstractGameService gameService,
+      UserService userService) {
     this.gameService = gameService;
-    this.userController = userController;
     this.userService = userService;
-    this.gameRepository = gameRepository;
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

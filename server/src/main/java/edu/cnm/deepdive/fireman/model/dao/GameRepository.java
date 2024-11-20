@@ -16,11 +16,11 @@ public interface GameRepository extends JpaRepository<Game, Long> {
       FROM
         Game AS g
       WHERE
-        (g.arsonist = arsonist
+        (g.arsonist = :user
       OR
-        g.fireman = fireman)
+        g.fireman = :user)
       AND
-        g.finished != null
+        g.finished is null
       """;
 
   String OPEN_GAMES = """
@@ -29,18 +29,18 @@ public interface GameRepository extends JpaRepository<Game, Long> {
       FROM
         Game AS g
       WHERE
-        (g.arsonist != null
+        (g.arsonist is not null
       AND
-       g.fireman = null)
+       g.fireman is null)
       OR
-        (g.fireman != null
+        (g.fireman is not null
       AND
-        g.arsonist = null)
+        g.arsonist is null)
       """;
 
 
   @Query(CURRENT_GAMES)
-  List<Game> findCurrentGames(User arsonist, User fireman);
+  List<Game> findCurrentGames(User user);
 
   @Query(OPEN_GAMES)
   List<Game> findOpenGames();
