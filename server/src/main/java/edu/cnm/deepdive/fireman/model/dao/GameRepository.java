@@ -38,6 +38,16 @@ public interface GameRepository extends JpaRepository<Game, Long> {
         g.arsonist is null)
       """;
 
+  String FIND_BY_USER = """
+      SELECT
+        fireman = :fireman
+      AND
+        arsonist = :arsonist
+      WHERE
+        g.fireman = :fireman
+      OR
+      g.arsonist = :arsonist
+      """;
 
   @Query(CURRENT_GAMES)
   List<Game> findCurrentGames(User user);
@@ -45,5 +55,5 @@ public interface GameRepository extends JpaRepository<Game, Long> {
   @Query(OPEN_GAMES)
   List<Game> findOpenGames();
 
-
+  Optional<Game> findByExternalKeyAndArsonistOrFireman(UUID key, User arsonist, User fireman);
 }

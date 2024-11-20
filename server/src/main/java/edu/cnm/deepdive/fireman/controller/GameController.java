@@ -1,16 +1,9 @@
 package edu.cnm.deepdive.fireman.controller;
 
-import edu.cnm.deepdive.fireman.model.dao.GameRepository;
 import edu.cnm.deepdive.fireman.model.entity.Game;
-import edu.cnm.deepdive.fireman.model.entity.User;
 import edu.cnm.deepdive.fireman.service.AbstractGameService;
 import edu.cnm.deepdive.fireman.service.UserService;
-import java.net.URI;
-import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
