@@ -10,4 +10,7 @@ public interface AbstractGameService {
 
   public Game get(UUID key);
 
+  Game getFireman(UUID key, User fireman);
+
+  Game getArsonist(UUID key, User arsonist);
 }

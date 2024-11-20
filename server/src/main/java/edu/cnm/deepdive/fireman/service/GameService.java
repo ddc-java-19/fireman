@@ -49,13 +49,14 @@ public class GameService implements AbstractGameService {
 
   }
 
-  public Game get(UUID key, User arsonist, UserService userService){
-    return gameRepository.findGameByExternalKeyAndArsonist(UUID arsonist.getExternalKey(key), userService.getCurrent())
+  public Game getArsonist(UUID key, User arsonist, UserService userService) {
+    return gameRepository.findGameByExternalKeyAndArsonist(UUID key, User arsonist, userService.getCurrent())
         .orElseThrow();
   }
 
-  public User getFireman() {
-    return fireman;
+  public User getFireman(UUID key, User fireman, UserService userService) {
+    return gameRepository.findGameByExternalKeyAndFireman(UUID key, User fireman, UserService.getCurrent())
+        .orElseThrow();
   }
 
   public void setFireman(User fireman) {
