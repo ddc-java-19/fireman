@@ -8,4 +8,6 @@ public interface AbstractGameService {
 
   Game startJoin(Game game, User user);
 
+  public Game get(UUID key);
+
 }

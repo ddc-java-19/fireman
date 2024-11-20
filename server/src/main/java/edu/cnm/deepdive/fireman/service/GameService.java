@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 public class GameService implements AbstractGameService {
 
   private final GameRepository gameRepository;
+  private final UserService userService;
 
   @Autowired
-  public GameService(GameRepository gameRepository) {
+  public GameService(GameRepository gameRepository, UserService userService) {
     this.gameRepository = gameRepository;
+    this.userService = userService;
   }
 
   public Game startJoin(Game game, User user) {
@@ -38,6 +40,11 @@ public class GameService implements AbstractGameService {
       }
     }
     return gameRepository.save(gameToPlay);
+  }
+
+  public Game get(UUID key){
+    return gameRepository.findGameByExternalKeyAndUser(key, userService.getCurrent())
+        .orElseThrow();
   }
 
 
