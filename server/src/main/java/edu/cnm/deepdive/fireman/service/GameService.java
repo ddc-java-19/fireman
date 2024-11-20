@@ -25,7 +25,7 @@ public class GameService implements AbstractGameService {
     if (!games.isEmpty()) {
       gameToPlay = games.getFirst();
     } else {
-      List<Game> openGames = gameRepository.findOpenGames(user, user);
+      List<Game> openGames = gameRepository.findOpenGames();
       if(openGames.isEmpty()) {
         gameToPlay = game;
         gameToPlay.setArsonist(user);
