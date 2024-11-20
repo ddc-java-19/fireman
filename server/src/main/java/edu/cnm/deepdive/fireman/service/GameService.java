@@ -2,7 +2,6 @@ package edu.cnm.deepdive.fireman.service;
 
 import edu.cnm.deepdive.fireman.model.Wind;
 import edu.cnm.deepdive.fireman.model.dao.GameRepository;
-import edu.cnm.deepdive.fireman.model.dao.UserRepository;
 import edu.cnm.deepdive.fireman.model.entity.Game;
 import edu.cnm.deepdive.fireman.model.entity.User;
 import java.util.List;
@@ -15,6 +14,7 @@ public class GameService implements AbstractGameService {
 
   private final GameRepository gameRepository;
   private final UserService userService;
+  private User fireman;
 
   @Autowired
   public GameService(GameRepository gameRepository, UserService userService) {
@@ -42,14 +42,23 @@ public class GameService implements AbstractGameService {
     return gameRepository.save(gameToPlay);
   }
 
-  public Game get(UUID key){
-    return gameRepository.findGameByExternalKeyAndFireman(key, userService.getCurrent())
+  public Game get(User fireman, UUID key) {
+    this.fireman = fireman;
+    return gameRepository.findGameByExternalKeyAndFireman(UUID key, userService.getCurrent())
+        .orElseThrow();
+
+  }
+
+  public Game get(UUID key, User arsonist, UserService userService){
+    return gameRepository.findGameByExternalKeyAndArsonist(UUID arsonist.getExternalKey(key), userService.getCurrent())
         .orElseThrow();
   }
 
-  public Game get(UUID key){
-    return gameRepository.findGameByExternalKeyAndArsonist(key, userService.getCurrent())
-        .orElseThrow();
+  public User getFireman() {
+    return fireman;
   }
 
+  public void setFireman(User fireman) {
+    this.fireman = fireman;
   }
+}

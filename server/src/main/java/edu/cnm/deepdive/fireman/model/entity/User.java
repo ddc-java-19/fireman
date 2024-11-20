@@ -1,23 +1,15 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderBy;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.time.Instant;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 import org.hibernate.annotations.CreationTimestamp;
 
 @SuppressWarnings({"JpaDataSourceORMInspection", "DefaultAnnotationParam"})
@@ -54,7 +46,7 @@ public class User {
     return created;
   }
 
-  public UUID getExternalKey() {
+  public UUID getExternalKey(UUID key) {
     return externalKey;
   }
 
