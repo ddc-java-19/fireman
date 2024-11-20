@@ -1,5 +1,10 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,11 +22,14 @@ import org.hibernate.annotations.CreationTimestamp;
 @Table(
     name = "user_profile"
 )
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"key", "displayName", "created"})
 public class User {
 
   @Id
   @GeneratedValue
   @Column(name= "user_profile_id", nullable = false, updatable = false)
+  @JsonIgnore
   private Long id;
 
   @CreationTimestamp
@@ -30,6 +38,7 @@ public class User {
   private Instant created;
 
   @Column(nullable = false, updatable = false, unique = true, columnDefinition = "UUID")
+  @JsonProperty(value = "key", access = Access.READ_ONLY)
   private UUID externalKey;
 
   @Column(nullable = false, updatable = false, unique = true, length = 30)

@@ -14,7 +14,6 @@ public class GameService implements AbstractGameService {
 
   private final GameRepository gameRepository;
   private final UserService userService;
-  private User fireman;
 
   @Autowired
   public GameService(GameRepository gameRepository, UserService userService) {
@@ -22,44 +21,31 @@ public class GameService implements AbstractGameService {
     this.userService = userService;
   }
 
-  public Game startJoin(Game game, User user) {
+  @Override
+  public Game startJoin(Game game) {
     Game gameToPlay;
-    List<Game> games = gameRepository.findCurrentGames(user);
+    User currentUser = userService.getCurrent();
+    List<Game> games = gameRepository.findCurrentGames(currentUser);
     if (!games.isEmpty()) {
       gameToPlay = games.getFirst();
     } else {
       List<Game> openGames = gameRepository.findOpenGames();
       if(openGames.isEmpty()) {
         gameToPlay = game;
-        gameToPlay.setArsonist(user);
+        gameToPlay.setArsonist(currentUser);
         gameToPlay.setWind(Wind.NORTH);
         // TODO: 11/20/2024 randomize wind direction on game start.
       } else {
         gameToPlay = openGames.getFirst();
-        gameToPlay.setFireman(user);
+        gameToPlay.setFireman(currentUser);
       }
     }
     return gameRepository.save(gameToPlay);
   }
 
-  public Game get(User fireman, UUID key) {
-    this.fireman = fireman;
-    return gameRepository.findGameByExternalKeyAndFireman(UUID key, userService.getCurrent())
-        .orElseThrow();
-
-  }
-
-  public Game getArsonist(UUID key, User arsonist, UserService userService) {
-    return gameRepository.findGameByExternalKeyAndArsonist(UUID key, User arsonist, userService.getCurrent())
+  public Game get(UUID key) {
+    return gameRepository.findGameByKeyAndUser(key, userService.getCurrent())
         .orElseThrow();
   }
 
-  public User getFireman(UUID key, User fireman, UserService userService) {
-    return gameRepository.findGameByExternalKeyAndFireman(UUID key, User fireman, UserService.getCurrent())
-        .orElseThrow();
-  }
-
-  public void setFireman(User fireman) {
-    this.fireman = fireman;
-  }
 }

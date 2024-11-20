@@ -6,11 +6,8 @@ import java.util.UUID;
 
 public interface AbstractGameService {
 
-  Game startJoin(Game game, User user);
+  Game startJoin(Game game);
 
-  public Game get(UUID key);
+  Game get(UUID key);
 
-  Game getFireman(UUID key, User fireman);
-
-  Game getArsonist(UUID key, User arsonist);
 }
