@@ -46,22 +46,6 @@ public class User {
   @Column(nullable = false, updatable = true, unique = true, length = 50)
   private String displayName;
 
-  @OneToMany(
-      mappedBy = "fireman", fetch = FetchType.LAZY,
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
-      orphanRemoval = false
-  )
-  @OrderBy("started DESC")
-  private final List<Game> firemanGames = new LinkedList<>();
-
-  @OneToMany(
-      mappedBy = "arsonist", fetch = FetchType.LAZY,
-      cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
-      orphanRemoval = false
-  )
-  @OrderBy("started DESC")
-  private final List<Game> arsonistGames = new LinkedList<>();
-
   public Long getId() {
     return id;
   }
@@ -88,24 +72,6 @@ public class User {
 
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
-  }
-
-  public List<Game> getArsonistGames() {
-    return arsonistGames;
-  }
-
-  public List<Game> getFiremanGames() {
-    return firemanGames;
-  }
-
-  public List<Game> getGames() {
-    return Stream.concat(
-        arsonistGames.stream(),
-        firemanGames.stream()
-    )
-        .distinct()
-        .sorted(Comparator.comparing(Game::getStarted).reversed())
-        .toList();
   }
 
   @PrePersist

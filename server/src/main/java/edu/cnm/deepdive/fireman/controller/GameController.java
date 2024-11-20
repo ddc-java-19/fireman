@@ -25,7 +25,6 @@ public class GameController {
   private final UserService userService;
   private final GameRepository gameRepository;
 
-  @Autowired
   public GameController(AbstractGameService gameService, UserController userController,
       UserService userService, GameRepository gameRepository) {
     this.gameService = gameService;
@@ -35,18 +34,13 @@ public class GameController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Game> post(@RequestBody Game game) {
+  public Game post(@RequestBody Game game) {
     Game created = gameService.startJoin(game, userService.getCurrent());
-    URI location = WebMvcLinkBuilder.linkTo(
-        WebMvcLinkBuilder.methodOn(getClass()).get(created.getExternalKey())
-    ).toUri();
-    return ResponseEntity.created(location).body(created);
+//    URI location = WebMvcLinkBuilder.linkTo(
+//        WebMvcLinkBuilder.methodOn(getClass()).get(created.getExternalKey())
+//    ).toUri();
+    return created;
   }
 
-  @Override
-  public Game get(UUID externalKey) {
-    return gameRepository
-        .findByExternalKeyAndUser(externalKey, userService.getCurrent())
-        .orElseThrow();
 
 }

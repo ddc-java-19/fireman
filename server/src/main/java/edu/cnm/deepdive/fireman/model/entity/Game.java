@@ -29,6 +29,8 @@ import org.hibernate.annotations.CreationTimestamp;
 )
 public class Game {
 
+
+
   @Id
   @GeneratedValue
   @Column(name = "game_id", nullable = false, updatable = false)
@@ -128,6 +130,7 @@ public class Game {
   public void setWind(Wind wind) {
     this.wind = wind;
   }
+
 
   @PrePersist
   void computeFieldValues() {

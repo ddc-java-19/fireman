@@ -4,8 +4,8 @@ import edu.cnm.deepdive.fireman.model.entity.Game;
 import edu.cnm.deepdive.fireman.model.entity.User;
 import java.util.UUID;
 
-public class AbstractGameService {
+public interface AbstractGameService {
 
-public Game startJoin(Game game, User user) {}
+  Game startJoin(Game game, User user);
 
 }
