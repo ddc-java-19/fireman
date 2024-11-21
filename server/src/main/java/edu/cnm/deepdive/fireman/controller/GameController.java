@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.fireman.controller;
 
 import edu.cnm.deepdive.fireman.model.entity.Game;
+import edu.cnm.deepdive.fireman.model.entity.Move;
 import edu.cnm.deepdive.fireman.service.AbstractGameService;
 import java.util.UUID;
 import org.springframework.http.MediaType;
@@ -33,6 +34,12 @@ public class GameController {
   @GetMapping(path = "/{key}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Game get(@PathVariable UUID key) {
     return gameService.get(key);
+  }
+
+  @PostMapping(path = "/{key}/moves", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public Move post(@PathVariable UUID key, @RequestBody Move move) {
+    throw new UnsupportedOperationException("Not yet implemented");
+    // TODO: 11/21/2024 add method to abstractGameService, implemented in Game Service, to update state of the game.
   }
 
 

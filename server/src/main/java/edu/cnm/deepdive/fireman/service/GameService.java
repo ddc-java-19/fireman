@@ -38,6 +38,8 @@ public class GameService implements AbstractGameService {
       } else {
         gameToPlay = openGames.getFirst();
         gameToPlay.setFireman(currentUser);
+        // TODO: 11/21/2024 create plots for game. Write them to database.
+        // TODO: 11/21/2024 Add loop to create plots, set col, row, burnable and attributes to them
       }
     }
     return gameRepository.save(gameToPlay);
