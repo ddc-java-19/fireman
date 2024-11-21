@@ -1,6 +1,8 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,20 +18,25 @@ public class Move {
   @Id
   @GeneratedValue
   @Column(name = "move_id", nullable = false, updatable = false)
+  @JsonIgnore
   private long id;
 
   @Column(name = "row_number", nullable = false, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private int row;
 
   @Column(name = "column_number", nullable = false, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private int column;
 
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   @JoinColumn(name = "game_id", nullable = false, updatable = false)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Game game;
 
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   @JoinColumn(name = "user_id", nullable = false, updatable = false)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private User user;
 
   public long getId() {

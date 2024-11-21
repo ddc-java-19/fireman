@@ -2,6 +2,7 @@ package edu.cnm.deepdive.fireman.service;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -26,7 +27,7 @@ import javax.inject.Singleton;
 public class GoogleSignInService {
 
   private static final String BEARER_TOKEN_FORMAT = "Bearer %s";
-
+  private static final String TAG = GoogleSignInService.class.getSimpleName();
   /**
    * @noinspection deprecation
    */
@@ -45,11 +46,15 @@ public class GoogleSignInService {
   }
 
   public Single<GoogleSignInAccount> refresh() {
-    return Single.create((SingleEmitter<GoogleSignInAccount> emitter) ->
-            client
-                .silentSignIn()
-                .addOnSuccessListener(emitter::onSuccess)
-                .addOnFailureListener(emitter::onError))
+    return Single.create((SingleEmitter<GoogleSignInAccount> emitter) -> {
+          client
+              .silentSignIn()
+              .addOnSuccessListener(t -> {
+                emitter.onSuccess(t);
+                Log.d(TAG, t.getIdToken()); // FIXME Remove after testing.
+              })
+              .addOnFailureListener(emitter::onError);
+        })
         .observeOn(Schedulers.io());
   }
 
@@ -64,14 +69,16 @@ public class GoogleSignInService {
 
   public Single<GoogleSignInAccount> completeSignIn(ActivityResult result) {
     return Single.create((SingleEmitter<GoogleSignInAccount> emitter) -> {
-      try {
-        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
-        GoogleSignInAccount account = task.getResult(ApiException.class);
-        emitter.onSuccess(account);
-      } catch (ApiException e) {
-        emitter.onError(e);
-      }
-    })
+          try {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(
+                result.getData());
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+            emitter.onSuccess(account);
+            Log.d(TAG, account.getIdToken()); // FIXME Remove after testing.
+          } catch (ApiException e) {
+            emitter.onError(e);
+          }
+        })
         .observeOn(Schedulers.io());
   }
 
