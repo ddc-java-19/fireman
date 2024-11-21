@@ -65,8 +65,16 @@ public class GameService implements AbstractGameService {
         .orElseThrow();
   }
 
-  public Game move(Move move) {
-    throw new UnsupportedOperationException("not yet implemented");
+  public Game move(UUID key, Move move) {
+    User currentUser = userService.getCurrent();
+    return gameRepository.findGameByKeyAndUser(key, currentUser)
+        .map((game) -> {
+    // TODO: 11/21/2024 Throw IllegalStateException to stop player from playing out of turn
+    // TODO: 11/21/2024 Validate move contents to ensure moves are valid for each user. Throw exception.
+    // TODO: 11/21/2024 Update Plots for the move and time passed
+          return gameRepository.save(game);
+        })
+        .orElseThrow();
   }
 
 }

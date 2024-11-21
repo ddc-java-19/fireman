@@ -21,6 +21,10 @@ public class Move {
   @JsonIgnore
   private long id;
 
+  @Column(nullable = false, updatable = false)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private int moveNumber;
+
   @Column(name = "row_number", nullable = true, updatable = true)
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Integer row;
@@ -41,6 +45,14 @@ public class Move {
 
   public long getId() {
     return id;
+  }
+
+  public int getMoveNumber() {
+    return moveNumber;
+  }
+
+  public void setMoveNumber(int moveNumber) {
+    this.moveNumber = moveNumber;
   }
 
   public Integer getRow() {

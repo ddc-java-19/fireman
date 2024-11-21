@@ -84,6 +84,11 @@ public class Game {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private final List<Plot> plots = new LinkedList<>();
 
+  @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, orphanRemoval = true)
+  @OrderBy("moveNumber ASC")
+  @JsonIgnore
+  private final List<Move> moves = new LinkedList<>();
+
   public long getId() {
     return id;
   }
@@ -150,6 +155,10 @@ public class Game {
 
   public List<Plot> getPlots() {
     return plots;
+  }
+
+  public List<Move> getMoves() {
+    return moves;
   }
 
   @PrePersist

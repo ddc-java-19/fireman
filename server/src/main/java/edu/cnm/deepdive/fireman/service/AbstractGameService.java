@@ -11,6 +11,6 @@ public interface AbstractGameService {
 
   Game get(UUID key);
 
-  Game move(Move move);
+  Game move(UUID key, Move move);
 
 }
