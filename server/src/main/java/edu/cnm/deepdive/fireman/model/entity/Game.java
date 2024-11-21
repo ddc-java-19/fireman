@@ -1,5 +1,7 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.cnm.deepdive.fireman.model.Wind;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,18 +36,22 @@ public class Game {
   @Id
   @GeneratedValue
   @Column(name = "game_id", nullable = false, updatable = false)
+  @JsonIgnore
   private long id;
 
   @Column(nullable = false, updatable = false, unique = true, columnDefinition = "UUID")
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private UUID externalKey;
 
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Instant started;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = true, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Instant finished;
 
   @Column(nullable = false, updatable = true)
@@ -60,10 +66,12 @@ public class Game {
 
   @ManyToOne(fetch = FetchType.EAGER, optional = true)
   @JoinColumn(name = "fireman_id", nullable = true, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private User fireman;
 
   @ManyToOne(fetch = FetchType.EAGER, optional = true)
   @JoinColumn(name = "arsonist_id", nullable = true, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private User arsonist;
 
   public long getId() {

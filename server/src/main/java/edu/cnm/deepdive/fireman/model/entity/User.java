@@ -35,16 +35,19 @@ public class User {
   @CreationTimestamp
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = false, updatable = false)
+  @JsonProperty(access = Access.READ_ONLY)
   private Instant created;
 
   @Column(nullable = false, updatable = false, unique = true, columnDefinition = "UUID")
-  @JsonProperty(value = "key", access = Access.READ_ONLY)
+  @JsonProperty(value ="key", access = Access.READ_ONLY)
   private UUID externalKey;
 
   @Column(nullable = false, updatable = false, unique = true, length = 30)
+  @JsonIgnore
   private String oauthKey;
 
   @Column(nullable = false, updatable = true, unique = true, length = 50)
+  @JsonProperty(access = Access.READ_ONLY)
   private String displayName;
 
   public Long getId() {
