@@ -3,10 +3,13 @@ package edu.cnm.deepdive.fireman.service;
 import edu.cnm.deepdive.fireman.model.Wind;
 import edu.cnm.deepdive.fireman.model.dao.GameRepository;
 import edu.cnm.deepdive.fireman.model.entity.Game;
+import edu.cnm.deepdive.fireman.model.entity.Move;
+import edu.cnm.deepdive.fireman.model.entity.Plot;
 import edu.cnm.deepdive.fireman.model.entity.User;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,11 +17,14 @@ public class GameService implements AbstractGameService {
 
   private final GameRepository gameRepository;
   private final AbstractUserService userService;
+  private final int boardSize;
 
   @Autowired
-  public GameService(GameRepository gameRepository, AbstractUserService userService) {
+  public GameService(GameRepository gameRepository, AbstractUserService userService,
+      @Value("${fireman.board-size}") int boardSize) {
     this.gameRepository = gameRepository;
     this.userService = userService;
+    this.boardSize = boardSize;
   }
 
   @Override
@@ -30,7 +36,7 @@ public class GameService implements AbstractGameService {
       gameToPlay = games.getFirst();
     } else {
       List<Game> openGames = gameRepository.findOpenGames();
-      if(openGames.isEmpty()) {
+      if (openGames.isEmpty()) {
         gameToPlay = game;
         gameToPlay.setArsonist(currentUser);
         gameToPlay.setWind(Wind.NORTH);
@@ -38,8 +44,17 @@ public class GameService implements AbstractGameService {
       } else {
         gameToPlay = openGames.getFirst();
         gameToPlay.setFireman(currentUser);
-        // TODO: 11/21/2024 create plots for game. Write them to database.
-        // TODO: 11/21/2024 Add loop to create plots, set col, row, burnable and attributes to them
+        List<Plot> plots = gameToPlay.getPlots();
+        for (int rowIndex = 0; rowIndex < boardSize; rowIndex++) {
+          for (int colIndex = 0; colIndex < boardSize; colIndex++) {
+            Plot plot = new Plot();
+            plot.setRow(rowIndex);
+            plot.setColumn(colIndex);
+            plot.setGame(gameToPlay);
+            plot.setBurnable(true);
+            plots.add(plot);
+          }
+        }
       }
     }
     return gameRepository.save(gameToPlay);
@@ -48,6 +63,10 @@ public class GameService implements AbstractGameService {
   public Game get(UUID key) {
     return gameRepository.findGameByKeyAndUser(key, userService.getCurrent())
         .orElseThrow();
+  }
+
+  public Game move(Move move) {
+    throw new UnsupportedOperationException("not yet implemented");
   }
 
 }

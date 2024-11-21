@@ -19,7 +19,7 @@ public class Plot {
   @Id
   @GeneratedValue
   @Column(name = "plot_id", nullable = false, updatable = false)
-  @JsonProperty(access = Access.READ_ONLY)
+  @JsonIgnore
   private Long id;
 
   @Column(nullable = false, updatable = true)

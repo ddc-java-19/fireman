@@ -21,13 +21,13 @@ public class Move {
   @JsonIgnore
   private long id;
 
-  @Column(name = "row_number", nullable = false, updatable = true)
+  @Column(name = "row_number", nullable = true, updatable = true)
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private int row;
+  private Integer row;
 
-  @Column(name = "column_number", nullable = false, updatable = true)
+  @Column(name = "column_number", nullable = true, updatable = true)
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private int column;
+  private Integer column;
 
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   @JoinColumn(name = "game_id", nullable = false, updatable = false)
@@ -43,19 +43,19 @@ public class Move {
     return id;
   }
 
-  public int getRow() {
+  public Integer getRow() {
     return row;
   }
 
-  public void setRow(int row) {
+  public void setRow(Integer row) {
     this.row = row;
   }
 
-  public int getColumn() {
+  public Integer getColumn() {
     return column;
   }
 
-  public void setColumn(int column) {
+  public void setColumn(Integer column) {
     this.column = column;
   }
 

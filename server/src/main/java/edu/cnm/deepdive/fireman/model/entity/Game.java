@@ -79,7 +79,6 @@ public class Game {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private User arsonist;
 
-  // TODO: 11/21/2024 add Plot to Game
   @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
   @OrderBy("row ASC, column ASC")
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
