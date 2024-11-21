@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -16,6 +17,7 @@ public class FiremanAndArsonist {
       orphanRemoval = false
   )
   @OrderBy("started DESC")
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private final List<Game> firemanGames = new LinkedList<>();
 
   @OneToMany(
@@ -24,6 +26,7 @@ public class FiremanAndArsonist {
       orphanRemoval = false
   )
   @OrderBy("started DESC")
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private final List<Game> arsonistGames = new LinkedList<>();
 
   public List<Game> getFiremanGames() {

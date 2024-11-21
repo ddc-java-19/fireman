@@ -1,6 +1,8 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,21 +15,27 @@ public class Plot {
   @Id
   @GeneratedValue
   @Column(name = "plot_id", nullable = false, updatable = false)
+  @JsonProperty(access = Access.READ_ONLY)
   private Long id;
 
   @Column(nullable = false, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private boolean charred;
 
   @Column(nullable = false, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private boolean wet;
 
   @Column(nullable = false, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private boolean burnable;
 
   @Column(name = "row_number", nullable = false, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private int row;
 
   @Column(name = "column_number", nullable = false, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private int column;
 
   public Long getId() {
