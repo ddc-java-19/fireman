@@ -116,16 +116,16 @@ public class GameService implements AbstractGameService {
       throw new GameOverException();
     }
     if (row != null && (row < 0 || row >= boardSize)) {
-      // TODO: 11/21/2024 throw specialized IllegalArgumentException
+      throw new OutOfBoundsException();
     }
     if (column != null && (column < 0 || column >= boardSize)) {
-      // TODO: 11/21/2024 throw specialized IllegalArgumentException for outOfBounds
+      throw new OutOfBoundsException();
     }
     if (row == null && column == null) {
-      // TODO: 11/21/2024 throw specialized IllegalArgumentException (Insuficient information)
+      throw new InsufficientInformationException();
     }
     if (!userIsFireman && (row == null || column == null)) {
-      // TODO: 11/21/2024 throw specialized IllegalArgumentException
+      throw new InsufficientInformationException();
     }
   }
 
