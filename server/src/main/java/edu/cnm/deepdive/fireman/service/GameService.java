@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 public class GameService implements AbstractGameService {
 
   private final GameRepository gameRepository;
-  private final UserService userService;
+  private final AbstractUserService userService;
 
   @Autowired
-  public GameService(GameRepository gameRepository, UserService userService) {
+  public GameService(GameRepository gameRepository, AbstractUserService userService) {
     this.gameRepository = gameRepository;
     this.userService = userService;
   }
