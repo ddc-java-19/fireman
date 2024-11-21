@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.fireman.service;
 
+import edu.cnm.deepdive.fireman.model.PlotState;
 import edu.cnm.deepdive.fireman.model.Wind;
 import edu.cnm.deepdive.fireman.model.dao.GameRepository;
 import edu.cnm.deepdive.fireman.model.entity.Game;
@@ -8,6 +9,7 @@ import edu.cnm.deepdive.fireman.model.entity.Plot;
 import edu.cnm.deepdive.fireman.model.entity.User;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -51,7 +53,7 @@ public class GameService implements AbstractGameService {
             plot.setRow(rowIndex);
             plot.setColumn(colIndex);
             plot.setGame(gameToPlay);
-            plot.setBurnable(true);
+            plot.setPlotState(PlotState.BURNABLE);
             plots.add(plot);
           }
         }
@@ -67,14 +69,98 @@ public class GameService implements AbstractGameService {
 
   public Game move(UUID key, Move move) {
     User currentUser = userService.getCurrent();
-    return gameRepository.findGameByKeyAndUser(key, currentUser)
+    return gameRepository.findStartedGameByKeyAndUser(key, currentUser)
         .map((game) -> {
-    // TODO: 11/21/2024 Throw IllegalStateException to stop player from playing out of turn
-    // TODO: 11/21/2024 Validate move contents to ensure moves are valid for each user. Throw exception.
+          Integer column = move.getColumn();
+          Integer row = move.getRow();
+          boolean userIsFireman = game.getFireman().equals(currentUser);
+          validateMove(game, userIsFireman, row, column);
+          if (userIsFireman) {
+            if (row == null) {
+              game.getPlots()
+                  .stream()
+                  .filter((plot) -> plot.getColumn() == column)
+                  .forEach(plot -> plot.setPlotState(firemanState(plot.getPlotState())));
+            } else if (column == null) {
+              game.getPlots()
+                  .stream()
+                  .filter((plot) -> plot.getRow() == row)
+                  .forEach(plot -> plot.setPlotState(firemanState(plot.getPlotState())));
+            } else {
+            // TODO: 11/21/2024 fireman bomb
+          }
+        } else{
+      if (row == null || column == null) {
+        // TODO: 11/21/2024 throw specialized IllegalArgumentException
+      }
+      // TODO: 11/21/2024 handle arsonist move
+    }
     // TODO: 11/21/2024 Update Plots for the move and time passed
-          return gameRepository.save(game);
-        })
-        .orElseThrow();
+    return gameRepository.save(game);
+  })
+      .
+
+  orElseThrow();
+}
+
+private void validateMove(Game game, boolean userIsFireman, Integer row, Integer column) {
+  if (userIsFireman != game.isFiremansTurn()) {
+    throw new OutOfTurnException();
   }
+  if (game.isCompleted()) {
+    throw new GameOverException();
+  }
+  if (row != null && (row < 0 || row >= boardSize)) {
+    // TODO: 11/21/2024 throw specialized IllegalArgumentException
+  }
+  if (column != null && (column < 0 || column >= boardSize)) {
+    // TODO: 11/21/2024 throw specialized IllegalArgumentException for outOfBounds
+  }
+  if (row == null && column == null) {
+    // TODO: 11/21/2024 throw specialized IllegalArgumentException (Insificient information)
+  }
+}
+
+private PlotState firemanState(PlotState state) {
+  PlotState newState;
+  switch (state) {
+    case BURNABLE -> newState = PlotState.WET;
+    case WET -> newState = PlotState.WET;
+    case ON_FIRE -> newState = PlotState.UNBURNABLE;
+    case UNBURNABLE -> newState = PlotState.UNBURNABLE;
+    case CHARRED -> newState = PlotState.CHARRED;
+    default -> newState = PlotState.BURNABLE;
+    // TODO: 11/21/2024 create exception for default state. extends IllegalStateException
+  }
+  return newState;
+}
+
+private PlotState arsonistState(PlotState state) {
+  PlotState newState;
+  switch (state) {
+    case BURNABLE -> newState = PlotState.ON_FIRE;
+    case WET -> newState = PlotState.WET;
+    case ON_FIRE -> newState = PlotState.CHARRED;
+    case UNBURNABLE -> newState = PlotState.UNBURNABLE;
+    case CHARRED -> newState = PlotState.CHARRED;
+    default -> newState = PlotState.BURNABLE;
+    // TODO: 11/21/2024 create exception for default state. extends IllegalStateException
+  }
+  return newState;
+}
+
+private PlotState behaviorState(PlotState state) {
+  PlotState newState;
+  switch (state) {
+    case BURNABLE -> newState = PlotState.BURNABLE;
+    case WET -> newState = PlotState.BURNABLE;
+    case ON_FIRE -> newState = PlotState.CHARRED;
+    case UNBURNABLE -> newState = PlotState.UNBURNABLE;
+    case CHARRED -> newState = PlotState.CHARRED;
+    default -> newState = PlotState.BURNABLE;
+    // TODO: 11/21/2024 create exception for default state. extends IllegalStateException
+  }
+  return newState;
+}
 
 }

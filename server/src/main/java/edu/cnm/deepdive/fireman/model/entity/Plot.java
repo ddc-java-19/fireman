@@ -4,6 +4,7 @@ package edu.cnm.deepdive.fireman.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import edu.cnm.deepdive.fireman.model.PlotState;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,15 +25,7 @@ public class Plot {
 
   @Column(nullable = false, updatable = true)
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private boolean charred;
-
-  @Column(nullable = false, updatable = true)
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private boolean wet;
-
-  @Column(nullable = false, updatable = true)
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private boolean burnable;
+  private PlotState plotState;
 
   @Column(name = "row_number", nullable = false, updatable = true)
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -51,28 +44,12 @@ public class Plot {
     return id;
   }
 
-  public boolean isCharred() {
-    return charred;
+  public PlotState getPlotState() {
+    return plotState;
   }
 
-  public void setCharred(boolean charred) {
-    this.charred = charred;
-  }
-
-  public boolean isWet() {
-    return wet;
-  }
-
-  public void setWet(boolean wet) {
-    this.wet = wet;
-  }
-
-  public boolean isBurnable() {
-    return burnable;
-  }
-
-  public void setBurnable(boolean burnable) {
-    this.burnable = burnable;
+  public void setPlotState(PlotState plotState) {
+    this.plotState = plotState;
   }
 
   public int getRow() {
