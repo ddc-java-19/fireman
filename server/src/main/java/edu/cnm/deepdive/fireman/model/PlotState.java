@@ -10,6 +10,11 @@ public enum PlotState {
               ? SOAKED
               : ON_FIRE;
     }
+
+    @Override
+    public PlotState nextStateSpread() {
+      return ON_FIRE;
+    }
   },
   ON_FIRE {
     @Override
@@ -43,4 +48,9 @@ public enum PlotState {
   public PlotState nextState(Boolean firemanMove) {
     return this;
   }
+
+  public PlotState nextStateSpread(){
+    return this;
+  }
+
 }

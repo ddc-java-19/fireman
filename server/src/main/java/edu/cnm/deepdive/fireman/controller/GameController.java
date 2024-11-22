@@ -37,9 +37,8 @@ public class GameController {
   }
 
   @PostMapping(path = "/{key}/moves", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public Move post(@PathVariable UUID key, @RequestBody Move move) {
-    throw new UnsupportedOperationException("Not yet implemented");
-    // TODO: 11/21/2024 add method to abstractGameService, implemented in Game Service, to update state of the game.
+  public Game post(@PathVariable UUID key, @RequestBody Move move) {
+    return gameService.move(key, move);
   }
 
 

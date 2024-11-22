@@ -26,11 +26,9 @@ public class Move {
   private int moveNumber;
 
   @Column(name = "row_number", nullable = true, updatable = true)
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Integer row;
 
   @Column(name = "column_number", nullable = true, updatable = true)
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Integer column;
 
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
