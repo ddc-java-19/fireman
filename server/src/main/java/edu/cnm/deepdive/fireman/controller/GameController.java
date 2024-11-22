@@ -4,6 +4,7 @@ import edu.cnm.deepdive.fireman.model.entity.Game;
 import edu.cnm.deepdive.fireman.model.entity.Move;
 import edu.cnm.deepdive.fireman.service.AbstractGameService;
 import java.util.UUID;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/games")
+@Profile("service")
 public class GameController {
 
   private final AbstractGameService gameService;

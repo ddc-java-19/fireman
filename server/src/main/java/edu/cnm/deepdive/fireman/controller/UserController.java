@@ -3,6 +3,7 @@ package edu.cnm.deepdive.fireman.controller;
 import edu.cnm.deepdive.fireman.model.entity.User;
 import edu.cnm.deepdive.fireman.service.AbstractUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
+@Profile("service")
 public class UserController {
 
   private final AbstractUserService userService;
