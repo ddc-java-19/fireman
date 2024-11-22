@@ -17,8 +17,9 @@ create table game
 );
 create table move
 (
-    column_number integer not null,
-    row_number    integer not null,
+    column_number integer,
+    move_number   integer not null,
+    row_number    integer,
     game_id       bigint  not null,
     move_id       bigint  not null,
     user_id       bigint  not null,
@@ -26,11 +27,10 @@ create table move
 );
 create table plot
 (
-    burnable      boolean not null,
-    charred       boolean not null,
     column_number integer not null,
+    plot_state    tinyint not null check (plot_state between 0 and 5),
     row_number    integer not null,
-    wet           boolean not null,
+    game_id       bigint  not null,
     plot_id       bigint  not null,
     primary key (plot_id)
 );
@@ -52,3 +52,5 @@ alter table if exists move
     add constraint FK6khbbqe4c9jmywgvi9nehpkd1 foreign key (game_id) references game;
 alter table if exists move
     add constraint FK6l018k7a4glxhtwoxnwfml77u foreign key (user_id) references user_profile;
+alter table if exists plot
+    add constraint FK90lwgowegmcek3ysfw3k1pl62 foreign key (game_id) references game;

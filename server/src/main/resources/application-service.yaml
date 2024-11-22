@@ -17,3 +17,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://accounts.google.com
+
+fireman:
+  board-size: 10
+  initial-fire-probablility: 0.03

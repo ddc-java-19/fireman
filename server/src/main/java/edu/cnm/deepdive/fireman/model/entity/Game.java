@@ -3,6 +3,7 @@ package edu.cnm.deepdive.fireman.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.cnm.deepdive.fireman.model.Wind;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,11 +14,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.time.Instant;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -30,8 +35,6 @@ import org.hibernate.annotations.CreationTimestamp;
     }
 )
 public class Game {
-
-
 
   @Id
   @GeneratedValue
@@ -73,6 +76,16 @@ public class Game {
   @JoinColumn(name = "arsonist_id", nullable = true, updatable = true)
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private User arsonist;
+
+  @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+  @OrderBy("row ASC, column ASC")
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private final List<Plot> plots = new LinkedList<>();
+
+  @OneToMany(mappedBy = "game", fetch = FetchType.EAGER, orphanRemoval = true)
+  @OrderBy("moveNumber ASC")
+  @JsonIgnore
+  private final List<Move> moves = new LinkedList<>();
 
   public long getId() {
     return id;
@@ -131,7 +144,6 @@ public class Game {
   }
 
   public Wind getWind() {
-
     return wind;
   }
 
@@ -139,6 +151,13 @@ public class Game {
     this.wind = wind;
   }
 
+  public List<Plot> getPlots() {
+    return plots;
+  }
+
+  public List<Move> getMoves() {
+    return moves;
+  }
 
   @PrePersist
   void computeFieldValues() {

@@ -1,12 +1,17 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import edu.cnm.deepdive.fireman.model.PlotState;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @SuppressWarnings({"JpaDataSourceORMInspection", "unused", "DefaultAnnotationParam"})
 @Entity
@@ -15,20 +20,12 @@ public class Plot {
   @Id
   @GeneratedValue
   @Column(name = "plot_id", nullable = false, updatable = false)
-  @JsonProperty(access = Access.READ_ONLY)
+  @JsonIgnore
   private Long id;
 
   @Column(nullable = false, updatable = true)
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private boolean charred;
-
-  @Column(nullable = false, updatable = true)
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private boolean wet;
-
-  @Column(nullable = false, updatable = true)
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-  private boolean burnable;
+  private PlotState plotState;
 
   @Column(name = "row_number", nullable = false, updatable = true)
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -38,32 +35,21 @@ public class Plot {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private int column;
 
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
+  @JoinColumn(name = "game_id", nullable = false, updatable = false)
+  @JsonIgnore
+  private Game game;
+
   public Long getId() {
     return id;
   }
 
-  public boolean isCharred() {
-    return charred;
+  public PlotState getPlotState() {
+    return plotState;
   }
 
-  public void setCharred(boolean charred) {
-    this.charred = charred;
-  }
-
-  public boolean isWet() {
-    return wet;
-  }
-
-  public void setWet(boolean wet) {
-    this.wet = wet;
-  }
-
-  public boolean isBurnable() {
-    return burnable;
-  }
-
-  public void setBurnable(boolean burnable) {
-    this.burnable = burnable;
+  public void setPlotState(PlotState plotState) {
+    this.plotState = plotState;
   }
 
   public int getRow() {
@@ -80,5 +66,13 @@ public class Plot {
 
   public void setColumn(int column) {
     this.column = column;
+  }
+
+  public Game getGame() {
+    return game;
+  }
+
+  public void setGame(Game game) {
+    this.game = game;
   }
 }

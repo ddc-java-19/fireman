@@ -46,4 +46,28 @@ For our server side application we will be providing Google sign in so that play
 
 ## Stretch goals and possible enhancements 
 
-[//]: # (TODO If you can identify functional elements of the software that you think might not be achievable in the scope of the project, but which would nonetheless add significant value if you were able to include them, list them here. For now, we recommend listing them in order of complexity/amount of work, from the least to the most.)
++ Terrain State
+
+  > The plots would have different types of vegetation, affecting time burning.
+
+  > The different vegetation types could also affect fire spread behavior.
+  
++ Single Player
+
+  > The user could choose to play by themselves as arsonist or fireman.
+  
++ Rain/Lightning events
+
+  > Rain would randomly cover a part of the board, putting out the fires in that section, aiding the fireman.
+  
+  > Lightning could randomly turn plots on fire, helping the arsonist.
+
++ Board size selection
+
+  > We would like the users to select board size.
+
+## Summary of the current project as of 11/22/2024
+
+> As of now we have implemented basic gameplay through the server using Http GET, and POST requests. We are currently implementing some basic functions like wind direction being random. As well as adding a water bomb and how it will work. Also making the users moves persist so that fire and water are able to stay on the board for more than a single turn.
+
+> Our projects documentation and diagrams are being kept up to date and are currently in good shape. Overall, our main focus is to get the game working how we had envisioned. The project is working and playable yet its missing some key components that will make it enjoyable.

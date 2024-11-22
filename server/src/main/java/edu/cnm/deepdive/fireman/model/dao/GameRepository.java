@@ -64,6 +64,19 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     
       """;
 
+  String FIND_STARTED_BY_USER_AND_KEY = """
+      SELECT
+      g
+      FROM
+      Game AS g
+      WHERE
+      (g.arsonist = :user OR g.fireman = :user)
+      AND
+      (g.externalKey = :key)
+      AND
+      (g.arsonist is not null AND g.fireman is not null)
+      """;
+
   @Query(CURRENT_GAMES)
   List<Game> findCurrentGames(User user);
 
@@ -78,4 +91,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
   @Query(FIND_BY_USER_AND_KEY)
   Optional<Game> findGameByKeyAndUser(UUID key, User user);
+
+  @Query(FIND_STARTED_BY_USER_AND_KEY)
+  Optional<Game> findStartedGameByKeyAndUser(UUID key, User user);
 }
