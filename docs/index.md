@@ -46,4 +46,22 @@ For our server side application we will be providing Google sign in so that play
 
 ## Stretch goals and possible enhancements 
 
-[//]: # (TODO If you can identify functional elements of the software that you think might not be achievable in the scope of the project, but which would nonetheless add significant value if you were able to include them, list them here. For now, we recommend listing them in order of complexity/amount of work, from the least to the most.)
++ Terrain State
+
+  > The plots would have different types of vegetation, affecting time burning.
+
+  > The different vegetation types could also affect fire spread behavior.
+  
++ Single Player
+
+  > The user could choose to play by themselves as arsonist or fireman.
+  
++ Rain/Lightning events
+
+  > Rain would randomly cover a part of the board, putting out the fires in that section, aiding the fireman.
+  
+  > Lightning could randomly turn plots on fire, helping the arsonist.
+
++ Board size selection
+
+  > We would like the users to select board size.

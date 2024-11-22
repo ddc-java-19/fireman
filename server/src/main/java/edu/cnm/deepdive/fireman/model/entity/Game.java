@@ -36,8 +36,6 @@ import org.hibernate.annotations.CreationTimestamp;
 )
 public class Game {
 
-
-
   @Id
   @GeneratedValue
   @Column(name = "game_id", nullable = false, updatable = false)
