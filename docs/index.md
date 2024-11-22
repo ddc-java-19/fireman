@@ -65,3 +65,9 @@ For our server side application we will be providing Google sign in so that play
 + Board size selection
 
   > We would like the users to select board size.
+
+## Summary of the current project as of 11/22/2024
+
+> As of now we have implemented basic gameplay through the server using Http GET, and POST requests. We are currently implementing some basic functions like wind direction being random. As well as adding a water bomb and how it will work. Also making the users moves persist so that fire and water are able to stay on the board for more than a single turn.
+
+> Our projects documentation and diagrams are being kept up to date and are currently in good shape. Overall, our main focus is to get the game working how we had envisioned. The project is working and playable yet its missing some key components that will make it enjoyable.

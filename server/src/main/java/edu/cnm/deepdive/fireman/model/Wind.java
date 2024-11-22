@@ -1,5 +1,7 @@
 package edu.cnm.deepdive.fireman.model;
 
+import java.util.random.RandomGenerator;
+
 public enum Wind {
   NORTH(-1, 0),
   SOUTH(1, 0),
@@ -13,6 +15,7 @@ public enum Wind {
     this.rowOffset = rowOffset;
     this.columnOffset = columnOffset;
   }
+
 
   public int getRowOffset() {
     return rowOffset;
