@@ -1,6 +1,8 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.cnm.deepdive.fireman.model.Wind;
 import jakarta.persistence.CascadeType;
@@ -34,6 +36,8 @@ import org.hibernate.annotations.CreationTimestamp;
         @Index(columnList = "score, finished")
     }
 )
+
+@JsonInclude(Include.NON_NULL)
 public class Game {
 
   @Id

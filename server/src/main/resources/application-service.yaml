@@ -2,7 +2,7 @@ server:
   error:
     include-message: always
   forward-headers-strategy: framework
-  port: 18081
+  port: 18181
   servlet:
     context-path: /fireman
 
