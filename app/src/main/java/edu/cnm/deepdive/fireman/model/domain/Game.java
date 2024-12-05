@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.fireman.model.domain;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ public class Game {
   public static final int SIZE = 10;
 
   @Expose(serialize = false)
+  @SerializedName(value = "externalKey", alternate = {"key"})
   private final String key;
   @Expose(serialize = false)
   private final Instant started;
