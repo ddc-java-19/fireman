@@ -106,8 +106,7 @@ public class Game {
   }
 
   public boolean isUserFireman(){
-//    return Objects.equals(fireman, user);
-    return true;
+    return Objects.equals(fireman, user);
   }
 
   public boolean isUserArsonist(){

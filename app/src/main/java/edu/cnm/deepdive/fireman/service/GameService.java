@@ -43,11 +43,11 @@ public class GameService {
         .flatMap((token) -> webServiceProxy.getGame(key, token));
   }
 
-  public Single<Game> move(String key, Move move){
+  public Single<Game> move(Move move){
     return signInService
         .refreshToken()
         .observeOn(Schedulers.io())
-        .flatMap((token) -> webServiceProxy.move(key, move, token));
+        .flatMap((token) -> webServiceProxy.move(game.getKey(), move, token));
   }
 
 

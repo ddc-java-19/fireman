@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import edu.cnm.deepdive.fireman.model.domain.Game;
+import edu.cnm.deepdive.fireman.model.domain.Move;
 import edu.cnm.deepdive.fireman.service.GameService;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import javax.inject.Inject;
@@ -35,6 +36,17 @@ public class GameViewModel extends ViewModel implements DefaultLifecycleObserver
   public void startGame(){
     throwable.setValue(null);
     gameService.startGame()
+        .subscribe(
+            game::postValue,
+            this::postThrowable,
+            pending
+        );
+  }
+
+  public void submitMove(Integer row, Integer column) {
+    Move move = new Move(row, column);
+    throwable.setValue(null);
+    gameService.move(move)
         .subscribe(
             game::postValue,
             this::postThrowable,
