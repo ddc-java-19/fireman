@@ -23,4 +23,8 @@
     <item name="colorAccent">@color/accent_color</item>
   </style>
 
+  <style name="ListContent" parent="AppTheme">
+    <item name="android:textAlignment">center</item>
+  </style>
+
 </resources>

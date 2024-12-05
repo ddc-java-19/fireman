@@ -5,8 +5,6 @@
   <string name="sign_out_title">Sign out</string>
   <string name="new_game_title">Start new game</string>
 
-  <string name="box_size_key">box_size</string>
-  <string name="box_size_title">Box size</string>
 
   <string name="night_mode_key">night_mode</string>
   <string name="night_mode_title">Dark mode</string>
@@ -27,6 +25,8 @@
   <string name="scores_label">Scores\n</string>
   <string name="game_label">Play</string>
   <string name="authentication_failure_message">Unable to sign in with provided credentials.</string>
+  <string name="user_title">User</string>
+  <string name="fireman_or_arsonist_title">Fireman or Arsonist</string>
 
   <string-array name="night_mode_values">
     <item>@string/night_mode_default</item>

@@ -4,8 +4,11 @@ import com.google.gson.annotations.Expose;
 import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class Game {
+
+  public static final int SIZE = 10;
 
   @Expose(serialize = false)
   private final String key;
@@ -25,6 +28,8 @@ public class Game {
   private final User fireman;
   @Expose(serialize = false)
   private final List<Plot> plots;
+
+  private User user;
 
   public Game(String key, Instant started, Instant finished, int score, boolean turn, Wind wind,
       User arsonist,
@@ -90,5 +95,21 @@ public class Game {
 
   public List<Plot> getPlots() {
     return plots;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public boolean isUserFireman(){
+    return Objects.equals(fireman, user);
+  }
+
+  public boolean isUserArsonist(){
+    return Objects.equals(arsonist, user);
   }
 }

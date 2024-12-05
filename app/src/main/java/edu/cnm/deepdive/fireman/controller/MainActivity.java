@@ -26,9 +26,12 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     binding = ActivityMainBinding.inflate(getLayoutInflater());
+    binding.terrain.setOnMoveListener((row, col) -> Log.d(TAG, String.format("move at row %1$d, column %2$d", row, col)));
     setContentView(binding.getRoot());
     viewModel = new ViewModelProvider(this).get(GameViewModel.class);
     viewModel.getGame()
-        .observe(this, (game) -> Log.d(TAG, game.toString()));
+        .observe(this, binding.terrain::setGame);
   }
+
+  // TODO: 12/5/2024 implement setUpVIewModel()
 }

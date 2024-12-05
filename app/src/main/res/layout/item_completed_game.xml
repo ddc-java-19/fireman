@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:orientation="horizontal"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingVertical="@dimen/half_static_spacing"
+  android:paddingHorizontal="@dimen/half_dynamic_spacing"
+  android:theme="@style/ListContent">
+
+  <TextView
+    android:id="@+id/rank"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_static_spacing"
+    android:layout_weight="1"
+    tools:text="10"/>
+
+  <TextView
+    android:id="@+id/score"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_static_spacing"
+    android:layout_weight="1"
+    tools:text="100"/>
+
+  <TextView
+    android:id="@+id/won_or_lost"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_static_spacing"
+    android:layout_weight="3"
+    tools:text="W"/>
+
+  <TextView
+    android:id="@+id/completed"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_static_spacing"
+    android:layout_weight="3"
+    tools:text="2024-10-28"/>
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package edu.cnm.deepdive.fireman.service;
 
 import edu.cnm.deepdive.fireman.model.domain.Game;
 import edu.cnm.deepdive.fireman.model.domain.Move;
+import edu.cnm.deepdive.fireman.model.domain.User;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -19,4 +20,7 @@ public interface WebServiceProxy {
 
   @POST("games/{key}/moves")
   Single<Game> move(@Path("key") String key, @Body Move move, @Header("Authorization") String bearerToken);
+
+  @GET("users/me")
+  Single<User> getProfile(@Header("Authorization") String bearerToken);
 }

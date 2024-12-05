@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:paddingTop="@dimen/half_dynamic_spacing"
+  tools:context=".controller.StatsFragment">
+
+  <TextView
+    android:id="@+id/user_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/half_dynamic_spacing"
+    android:layout_marginHorizontal="@dimen/full_dynamic_spacing"
+    android:text="@string/user_title"
+    android:labelFor="@id/user"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+  <Spinner
+    android:id="@+id/user"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/half_dynamic_spacing"
+    android:layout_marginBottom="@dimen/half_dynamic_spacing"
+    app:layout_constraintTop_toBottomOf="@id/user_title"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+  <TextView
+    android:id="@+id/size_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/half_dynamic_spacing"
+    android:layout_marginHorizontal="@dimen/full_dynamic_spacing"
+    android:text="@string/fireman_or_arsonist_title"
+    android:labelFor="@id/fireman_or_arsonist"
+    app:layout_constraintTop_toBottomOf="@id/user"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+  <androidx.appcompat.widget.SwitchCompat
+    android:id="@+id/fireman_or_arsonist"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/full_dynamic_spacing"
+    android:layout_marginBottom="@dimen/half_dynamic_spacing"
+    app:layout_constraintTop_toBottomOf="@+id/size_title"
+    app:layout_constraintStart_toStartOf="parent"
+    />
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/scores"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_margin="0dp"
+    android:orientation="vertical"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/fireman_or_arsonist"
+    tools:listitem="@layout/item_completed_game"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
