@@ -7,42 +7,58 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
-import edu.cnm.deepdive.fireman.databinding.ActivityMainBinding;
+import androidx.navigation.Navigation;
 import edu.cnm.deepdive.fireman.databinding.FragmentGameBinding;
+import edu.cnm.deepdive.fireman.view.TerrainView;
 import edu.cnm.deepdive.fireman.viewmodel.GameViewModel;
 
 public class GameFragment extends Fragment {
 
 
-  private static final String TAG = MainActivity.class.getSimpleName();
+  private static final String TAG = GameFragment.class.getSimpleName();
 
   private FragmentGameBinding binding;
   private GameViewModel viewModel;
 
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    }
+  }
 
 
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    return super.onCreateView(inflater, container, savedInstanceState);
+    super.onCreateView(inflater, container, savedInstanceState);
     binding = FragmentGameBinding.inflate(getLayoutInflater());
-    binding.getRoot();
     binding.terrain.setOnMoveListener((row, col) -> viewModel.submitMove(row, col));
-    setContentView(binding.getRoot());
-    viewModel = new ViewModelProvider(this).get(GameViewModel.class);
-    viewModel.getGame()
-        .observe(this, binding.terrain::setGame);
+    binding.viewStats.setOnClickListener((v) ->
+        Navigation.findNavController(binding.getRoot())
+            .navigate(GameFragmentDirections.navigateToStats()));
+    return binding.getRoot();
   }
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    setupViewModel();
+  }
 
+  @Override
+  public void onDestroyView() {
+    binding = null;
+    super.onDestroyView();
+  }
+
+  public void setupViewModel() {
+    viewModel = new ViewModelProvider(requireActivity()).get(GameViewModel.class);
+    getLifecycle().addObserver(viewModel);
+    LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
+    viewModel.getGame()
+        .observe(viewLifecycleOwner, binding.terrain::setGame);
   }
 }

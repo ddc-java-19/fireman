@@ -23,13 +23,16 @@
   <string name="completed_header">Completed</string>
   <string name="duration_format">%1$02d:%2$02d</string>
   <string name="scores_label">Scores\n</string>
-  <string name="game_label">Play</string>
+  <string name="game_label">Fireman</string>
   <string name="authentication_failure_message">Unable to sign in with provided credentials.</string>
   <string name="user_title">User</string>
   <string name="fireman_or_arsonist_title">Fireman or Arsonist</string>
 
   <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="fireman">FIREMAN</string>
+  <string name="view_stats_description">Navigate to statistics view</string>
+  <string name="stats_label">Stats</string>
+  <string name="sign_out">Sign out</string>
   <string-array name="night_mode_values">
     <item>@string/night_mode_default</item>
     <item>yes</item>
