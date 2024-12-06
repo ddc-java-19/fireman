@@ -31,8 +31,6 @@ public class StatsFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     binding = FragmentStatsBinding.inflate(inflater, container, false);
-//    binding.size.setOnSeekBarChangeListener(this);
-//    binding.user.setOnItemSelectedListener(this);
     return binding.getRoot();
   }
 
@@ -43,12 +41,12 @@ public class StatsFragment extends Fragment {
   }
 //
 //  @Override
-//  public void onStartTrackingTouch(SeekBar seekBar) {
+//  public void onStartTrackingTouch() {
 //    // Do nothing; empty implementation.
 //  }
 //
 //  @Override
-//  public void onStopTrackingTouch(SeekBar seekBar) {
+//  public void onStopTrackingTouch() {
 //    // Do nothing; empty implementation.
 //  }
 //
