@@ -94,4 +94,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
   @Query(FIND_STARTED_BY_USER_AND_KEY)
   Optional<Game> findStartedGameByKeyAndUser(UUID key, User user);
+
+  @Query("SELECT g.moveCount FROM Game AS g WHERE g.externalKey = :key AND (g.fireman = :user OR g.arsonist = :user)")
+  Optional<Integer> getMoveCount(UUID key, User user);
 }

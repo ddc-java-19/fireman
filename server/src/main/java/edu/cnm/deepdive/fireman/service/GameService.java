@@ -92,8 +92,15 @@ public class GameService implements AbstractGameService {
           }
           // TODO: 11/21/2024 set fields of Move object. Add to MovesList in the game.
           game.setFiremansTurn(!game.isFiremansTurn());
+          game.setMoveCount(game.getMoveCount() + 1);
           return gameRepository.save(game);
         })
+        .orElseThrow();
+  }
+
+  @Override
+  public int getMoveCount(UUID key) {
+    return gameRepository.getMoveCount(key, userService.getCurrent())
         .orElseThrow();
   }
 

@@ -13,4 +13,6 @@ public interface AbstractGameService {
 
   Game move(UUID key, Move move);
 
+  int getMoveCount(UUID key);
+
 }

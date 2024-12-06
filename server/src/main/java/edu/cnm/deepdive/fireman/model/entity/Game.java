@@ -56,6 +56,10 @@ public class Game {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Instant started;
 
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  @Column(nullable = false, updatable = true)
+  private int moveCount;
+
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = true, updatable = true)
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -101,6 +105,14 @@ public class Game {
 
   public Instant getStarted() {
     return started;
+  }
+
+  public int getMoveCount() {
+    return moveCount;
+  }
+
+  public void setMoveCount(int moveCount) {
+    this.moveCount = moveCount;
   }
 
   public Instant getFinished() {
