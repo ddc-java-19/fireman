@@ -29,6 +29,7 @@
   <string name="fireman_or_arsonist_title">Fireman or Arsonist</string>
 
   <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="fireman">FIREMAN</string>
   <string-array name="night_mode_values">
     <item>@string/night_mode_default</item>
     <item>yes</item>
