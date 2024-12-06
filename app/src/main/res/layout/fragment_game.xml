@@ -25,9 +25,7 @@
     android:contentDescription="@string/view_stats_description"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:useCompatPadding="true"
-
-    />
+    app:useCompatPadding="true"/>
 
 
 

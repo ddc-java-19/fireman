@@ -33,6 +33,7 @@
   <string name="view_stats_description">Navigate to statistics view</string>
   <string name="stats_label">Stats</string>
   <string name="sign_out">Sign out</string>
+  <string name="back_to_game">Navigate back to game.</string>
   <string-array name="night_mode_values">
     <item>@string/night_mode_default</item>
     <item>yes</item>
