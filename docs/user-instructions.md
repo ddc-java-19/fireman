@@ -16,7 +16,7 @@ order: 10
 ## User Instructions
 
 > In Fireman you can play as the fireman or the arsonist. Each has their own way of playing with
-> unique moves, and both players must find a way to outmanouver their opponent in this turn-based
+> unique moves, and both players must find a way to outmaneuver their opponent in this turn-based
 > game.
 
 > As a Fireman, you can shoot water that will WET a whole row or column, turning off any fires in
