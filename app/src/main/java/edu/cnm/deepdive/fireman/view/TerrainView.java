@@ -24,10 +24,10 @@ public class TerrainView extends View {
 
   private static final int BORDER_WIDTH = 32;
   private static final int[] stateDrawableIds = {
-      R.drawable.nature_24px,
+      R.drawable.tree,
       0, // FIXME: 12/7/2024 add fire drawable id
-      R.drawable.water_24px,
-      R.drawable.water_24px,
+      R.drawable.waves,
+      R.drawable.waves,
       0, // FIXME: 12/7/2024 add drawable/color
       0 // FIXME: 12/7/2024 add drawable/color
   };
