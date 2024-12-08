@@ -168,7 +168,7 @@ public class TerrainView extends View {
       int row = (int) (y / plotSize);
       int col = (int) (x / plotSize);
       onMoveListener.onMove(row, col);
-
+// TODO: 12/7/2024 Add border moves for fireman. greater than game.size
     }
     return true;
   }

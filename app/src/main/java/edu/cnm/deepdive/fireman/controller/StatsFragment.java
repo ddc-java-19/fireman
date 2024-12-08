@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.fireman.databinding.FragmentStatsBinding;
 import edu.cnm.deepdive.fireman.model.domain.User;
@@ -31,6 +32,9 @@ public class StatsFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     binding = FragmentStatsBinding.inflate(inflater, container, false);
+    binding.viewGame.setOnClickListener((v) ->
+            Navigation.findNavController(binding.getRoot())
+                .navigate(StatsFragmentDirections.navigateToGame()));
     return binding.getRoot();
   }
 
