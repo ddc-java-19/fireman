@@ -86,7 +86,7 @@ public class GameService implements AbstractGameService {
           validateMove(game, userIsFireman, row, column);
           if (userIsFireman) {
             handleFiremanMove(game, row, column);
-            handleTime(game, row, column);
+            handleTime(game);
           } else {
             handleArsonistMove(game, row, column);
           }
@@ -111,7 +111,7 @@ public class GameService implements AbstractGameService {
         .forEach(plot -> plot.setPlotState(plot.getPlotState().nextState(false)));
   }
 
-  private static void handleTime(Game game, Integer row, Integer column) {
+  private static void handleTime(Game game) {
     Wind wind = game.getWind();
     boolean spreadInRow = wind.getColumnOffset() != 0;
     int rowLowerBound;
@@ -119,25 +119,30 @@ public class GameService implements AbstractGameService {
     int rowUpperBound;
     int colUpperBound;
     if (spreadInRow) {
-      rowLowerBound = row - 1;
-      rowUpperBound = row + 1;
-      colLowerBound = column + wind.getColumnOffset();
+      rowLowerBound = - 1;
+      rowUpperBound = 1;
+      colLowerBound = - wind.getColumnOffset();
       colUpperBound = colLowerBound;
     } else {
-      rowLowerBound = row + wind.getRowOffset();
+      rowLowerBound = - wind.getRowOffset();
       rowUpperBound = rowLowerBound;
-      colLowerBound = column - 1;
-      colUpperBound = column + 1;
+      colLowerBound = - 1;
+      colUpperBound = 1;
     }
     game.getPlots()
-        .stream()
-        .filter((plot) -> plot.getRow() >= rowLowerBound && plot.getRow() <= rowUpperBound
-            && plot.getColumn() >= colLowerBound && plot.getColumn() <= colUpperBound)
         .forEach(plot -> {
-          if (plot.getRow() >= rowLowerBound && plot.getRow() <= rowUpperBound
-              && plot.getColumn() >= colLowerBound && plot.getColumn() <= colUpperBound) {
+          if(plot.getPlotState() == PlotState.BURNABLE
+              && game.getPlots()
+              .stream()
+              .anyMatch((p) -> p.getPlotState() == PlotState.ON_FIRE
+                  && p.getRow() >= plot.getRow() + rowLowerBound
+                  && p.getRow() <= plot.getRow() + rowUpperBound
+                  && p.getColumn() >= plot.getColumn() + colLowerBound
+                  && p.getColumn() <= plot.getColumn() + colUpperBound
+              )
+          ) {
             plot.setPlotState(plot.getPlotState().nextStateSpread());
-          } else {
+          } else{
             plot.setPlotState(plot.getPlotState().nextState(null));
           }
         });

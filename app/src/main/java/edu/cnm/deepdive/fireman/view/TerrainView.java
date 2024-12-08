@@ -6,27 +6,49 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
-import android.icu.text.ListFormatter.Width;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import edu.cnm.deepdive.fireman.R;
 import edu.cnm.deepdive.fireman.model.domain.Game;
 import edu.cnm.deepdive.fireman.model.domain.Plot;
+import edu.cnm.deepdive.fireman.model.domain.PlotState;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class TerrainView extends View {
 
   private static final int BORDER_WIDTH = 32;
+  private static final int[] stateDrawableIds = {
+      R.drawable.nature_24px,
+      0, // FIXME: 12/7/2024 add fire drawable id
+      R.drawable.water_24px,
+      R.drawable.water_24px,
+      0, // FIXME: 12/7/2024 add drawable/color
+      0 // FIXME: 12/7/2024 add drawable/color
+  };
+
+  private static final int[] stateColorIds = {
+    R.color.burnable,
+    R.color.on_fire,
+    R.color.wet,
+    R.color.soaked,
+    R.color.unburnable,
+    R.color.charred
+  };
+
 
   private List<Plot> plots;
   private final Paint gridPaint;
   private final Rect rect;
-  private final Paint waterPaint;
-  private final Paint firePaint;
+  private final Paint plotPaint;
   private final Paint borderControlPaint;
+  private final Drawable[] stateDrawables;
+  private final int[] stateColors;
 
   private Game game;
   private OnMoveListener onMoveListener;
@@ -39,16 +61,11 @@ public class TerrainView extends View {
     gridPaint.setDither(true);
     gridPaint.setColor(Color.BLACK);
     gridPaint.setStrokeWidth(2);
-    firePaint = new Paint();
-    firePaint.setAntiAlias(true);
-    firePaint.setStyle(Style.FILL);
-    firePaint.setDither(true);
-    firePaint.setColor(Color.RED);
-    waterPaint = new Paint();
-    waterPaint.setAntiAlias(true);
-    waterPaint.setStyle(Style.FILL);
-    waterPaint.setDither(true);
-    waterPaint.setColor(Color.BLUE);
+    plotPaint = new Paint();
+    plotPaint.setAntiAlias(true);
+    plotPaint.setStyle(Style.FILL);
+    plotPaint.setDither(true);
+    plotPaint.setColor(Color.RED);
     borderControlPaint = new Paint();
     borderControlPaint.setAntiAlias(true);
     borderControlPaint.setStyle(Style.FILL);
@@ -61,19 +78,27 @@ public class TerrainView extends View {
 
   public TerrainView(Context context) {
     super(context);
+    stateDrawables = stateDrawables();
+    stateColors = stateColors();
   }
 
   public TerrainView(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
+    stateDrawables = stateDrawables();
+    stateColors = stateColors();
   }
 
   public TerrainView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
+    stateDrawables = stateDrawables();
+    stateColors = stateColors();
   }
 
   public TerrainView(Context context, @Nullable AttributeSet attrs, int defStyleAttr,
       int defStyleRes) {
     super(context, attrs, defStyleAttr, defStyleRes);
+    stateDrawables = stateDrawables();
+    stateColors = stateColors();
   }
 
   @Override
@@ -98,27 +123,29 @@ public class TerrainView extends View {
     float plotSize = (float) (width - borderWidth) / Game.SIZE;
     int height = getHeight();
     canvas.drawRect(0, 0, width - borderWidth, height - borderWidth, gridPaint);
-    for (int i = 1; i< Game.SIZE; i++){
-      canvas.drawLine(i*plotSize, 0, i*plotSize, height - borderWidth, gridPaint);
-      canvas.drawLine(0, i*plotSize, width - borderWidth, i*plotSize, gridPaint);
+    for (int i = 1; i < Game.SIZE; i++) {
+      canvas.drawLine(i * plotSize, 0, i * plotSize, height - borderWidth, gridPaint);
+      canvas.drawLine(0, i * plotSize, width - borderWidth, i * plotSize, gridPaint);
     }
-    for(Plot plot : plots){
+    for (Plot plot : plots) {
       float top = plot.getRow() * plotSize;
       float left = plot.getColumn() * plotSize;
       float bottom = (plot.getRow() + 1) * plotSize;
       float right = (plot.getColumn() + 1) * plotSize;
-      switch(plot.getPlotState()){
-        case ON_FIRE -> {
-          canvas.drawRect(left, top, right, bottom, firePaint);
-        }
-        default -> {}
+      int position = plot.getPlotState().ordinal();
+      plotPaint.setColor(stateColors[position]);
+      canvas.drawRect(left, top, right, bottom, plotPaint);
+      Drawable drawable = stateDrawables[position];
+      if (drawable != null) {
+        drawable.setBounds(Math.round(left), Math.round(top), Math.round(right), Math.round(bottom));
+        drawable.draw(canvas);
       }
     }
     canvas.drawRect(width - borderWidth, 0, width, height - borderWidth, borderControlPaint);
     canvas.drawRect(0, height - borderWidth, width - borderWidth, height, borderControlPaint);
-    if(game != null && game.getFinished() == null){
+    if (game != null && game.getFinished() == null) {
       setOnTouchListener((view, event) -> translateTouchEvent(event, plotSize));
-    }else{
+    } else {
       setOnTouchListener((view, event) -> true);
     }
   }
@@ -146,11 +173,35 @@ public class TerrainView extends View {
     return true;
   }
 
-  private int getControlBorderWidth(Game game){
-    return (game != null && game.isUserFireman()) ? BORDER_WIDTH : 0 ;
+  private int getControlBorderWidth(Game game) {
+    return (game != null && game.isUserFireman()) ? BORDER_WIDTH : 0;
   }
 
+  private Drawable[] stateDrawables() {
+    Context context = getContext();
+    return Arrays.stream(PlotState.values())
+        .mapToInt((state) -> {
+          int position = state.ordinal();
+          return stateDrawableIds[position];
+        })
+        .mapToObj((id) -> (id != 0) ? context.getDrawable(id) : null)
+        .toArray(Drawable[]::new);
+  }
+
+  private int[] stateColors() {
+    Context context = getContext();
+    return Arrays.stream(PlotState.values())
+        .mapToInt((state) -> {
+          int position = state.ordinal();
+          return stateColorIds[position];
+        })
+        .map((id) -> (id != 0) ? context.getColor(id) : 0)
+        .toArray();
+  }
+
+
   public interface OnMoveListener {
+
     void onMove(Integer row, Integer column);
   }
 }
