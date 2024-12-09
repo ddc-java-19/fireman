@@ -93,7 +93,12 @@ public class GameService implements AbstractGameService {
           // TODO: 11/21/2024 set fields of Move object. Add to MovesList in the game.
           game.setFiremansTurn(!game.isFiremansTurn());
           game.setMoveCount(game.getMoveCount() + 1);
-          // TODO: 12/9/2024 If no plots are on fire and no plots are burnable, count up totals and set firemanWin field as well as finished field accordingly.
+          int onFire = countPlotState(game.getPlots(), PlotState.ON_FIRE);
+          if(onFire == 0){
+            int charred = countPlotState(game.getPlots(), PlotState.CHARRED);
+            game.setFiremanWin(charred <= game.getPlots().size() / 2);
+            game.setFinished(Instant.now());
+          }
           return gameRepository.save(game);
         })
         .orElseThrow();
@@ -206,6 +211,13 @@ public class GameService implements AbstractGameService {
     if (!userIsFireman && (row == null || column == null)) {
       throw new InsufficientInformationException();
     }
+  }
+
+  private int countPlotState(List<Plot> plots, PlotState state) {
+    return (int) plots
+        .stream()
+        .filter((plot) -> plot.getPlotState() == state)
+        .count();
   }
 
 

@@ -40,6 +40,8 @@ import org.hibernate.annotations.CreationTimestamp;
 @JsonInclude(Include.NON_NULL)
 public class Game {
 
+  public static final int SIZE = 10;
+
   @Id
   @GeneratedValue
   @Column(name = "game_id", nullable = false, updatable = false)

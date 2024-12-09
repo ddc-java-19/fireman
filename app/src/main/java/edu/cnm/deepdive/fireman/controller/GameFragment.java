@@ -11,7 +11,11 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import edu.cnm.deepdive.fireman.databinding.FragmentGameBinding;
+import edu.cnm.deepdive.fireman.model.domain.Plot;
+import edu.cnm.deepdive.fireman.model.domain.PlotState;
 import edu.cnm.deepdive.fireman.viewmodel.GameViewModel;
+import java.util.Arrays;
+import java.util.List;
 
 public class GameFragment extends Fragment {
 
@@ -58,6 +62,23 @@ public class GameFragment extends Fragment {
     getLifecycle().addObserver(viewModel);
     LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
     viewModel.getGame()
-        .observe(viewLifecycleOwner, binding.terrain::setGame);
+        .observe(viewLifecycleOwner, game -> {
+          binding.terrain.setGame(game);
+
+          // TODO: 12/9/2024 get data from game, including plot count for different kinds or plots, including wind; pass to widgets
+          String[] stateCountStrings = Arrays.stream(PlotState.values())
+              .mapToInt((state) -> countPlotState(game.getPlots(), state))
+              .mapToObj((count) -> String.valueOf(count))
+              .toArray(String[]::new);
+          // TODO: 12/9/2024  use the strings in the above array to populate textViews in the UI.
+        });
   }
+
+  private int countPlotState(List<Plot> plots, PlotState state) {
+    return (int) plots
+        .stream()
+        .filter((plot) -> plot.getPlotState() == state)
+        .count();
+  }
+
 }
