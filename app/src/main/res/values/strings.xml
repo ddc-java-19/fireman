@@ -34,6 +34,8 @@
   <string name="stats_label">Stats</string>
   <string name="sign_out">Sign out</string>
   <string name="back_to_game">Navigate back to game.</string>
+  <string name="north_description">Compass pointing north for displaying wind</string>
+  <string name="east_description">Compass pointing east for wind direction</string>
   <string-array name="night_mode_values">
     <item>@string/night_mode_default</item>
     <item>yes</item>
