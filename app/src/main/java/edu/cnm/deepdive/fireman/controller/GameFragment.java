@@ -64,7 +64,6 @@ public class GameFragment extends Fragment {
     viewModel.getGame()
         .observe(viewLifecycleOwner, game -> {
           binding.terrain.setGame(game);
-
           // TODO: 12/9/2024 get data from game, including plot count for different kinds or plots, including wind; pass to widgets
           String[] stateCountStrings = Arrays.stream(PlotState.values())
               .mapToInt((state) -> countPlotState(game.getPlots(), state))
