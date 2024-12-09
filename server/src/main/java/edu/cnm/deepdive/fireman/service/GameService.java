@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 public class GameService implements AbstractGameService {
 
   private final GameRepository gameRepository;
-  private final AbstractUserService userService;
   private final RandomGenerator rng;
   private final int boardSize;
   private final float initialFireProbability;
@@ -31,16 +30,14 @@ public class GameService implements AbstractGameService {
       RandomGenerator rng, @Value("${fireman.board-size}") int boardSize,
       @Value("${fireman.initial-fire-probablility}") float initialFireProbability) {
     this.gameRepository = gameRepository;
-    this.userService = userService;
     this.boardSize = boardSize;
     this.rng = rng;
     this.initialFireProbability = initialFireProbability;
   }
 
   @Override
-  public Game startJoin(Game game) {
+  public Game startJoin(Game game, User currentUser) {
     Game gameToPlay;
-    User currentUser = userService.getCurrent();
     List<Game> games = gameRepository.findCurrentGames(currentUser);
     if (!games.isEmpty()) {
       gameToPlay = games.getFirst();
@@ -71,13 +68,14 @@ public class GameService implements AbstractGameService {
     return gameRepository.save(gameToPlay);
   }
 
-  public Game get(UUID key) {
-    return gameRepository.findGameByKeyAndUser(key, userService.getCurrent())
+  @Override
+  public Game get(UUID key, User user) {
+    return gameRepository.findGameByKeyAndUser(key, user)
         .orElseThrow();
   }
 
-  public Game move(UUID key, Move move) {
-    User currentUser = userService.getCurrent();
+  @Override
+  public Game move(UUID key, Move move, User currentUser) {
     return gameRepository.findStartedGameByKeyAndUser(key, currentUser)
         .map((game) -> {
           Integer column = move.getColumn();
@@ -99,8 +97,8 @@ public class GameService implements AbstractGameService {
   }
 
   @Override
-  public int getMoveCount(UUID key) {
-    return gameRepository.getMoveCount(key, userService.getCurrent())
+  public int getMoveCount(UUID key, User currentUser) {
+    return gameRepository.getMoveCount(key, currentUser)
         .orElseThrow();
   }
 

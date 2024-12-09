@@ -38,7 +38,7 @@ public class WebServiceProxyModule {
         .connectTimeout(0, TimeUnit.MILLISECONDS)
         .writeTimeout(0, TimeUnit.MILLISECONDS)
         .readTimeout(0, TimeUnit.MILLISECONDS)
-        .callTimeout(15, TimeUnit.SECONDS)
+        .callTimeout(20, TimeUnit.SECONDS)
         .build();
     Retrofit retrofit = new Retrofit.Builder()
         .client(client)
