@@ -46,8 +46,8 @@ public class GameService implements AbstractGameService {
       if (openGames.isEmpty()) {
         gameToPlay = game;
         gameToPlay.setArsonist(currentUser);
-        gameToPlay.setWind(Wind.NORTH);
-        // TODO: 11/20/2024 randomize wind direction on game start.
+        Wind[] winds = Wind.values();
+        gameToPlay.setWind(winds[rng.nextInt(winds.length)]);
       } else {
         gameToPlay = openGames.getFirst();
         gameToPlay.setFireman(currentUser);

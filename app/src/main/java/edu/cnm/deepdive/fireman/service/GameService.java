@@ -54,9 +54,14 @@ public class GameService {
   }
 
   public Single<Game> loadGame(String key, int moveCount){
-    return signInService.refreshToken()
+    return signInService
+        .refreshToken()
         .observeOn(Schedulers.io())
-        .flatMap((token) -> longPollWebServiceProxy.getGame(key, moveCount, token));
+        .flatMap((token) -> longPollWebServiceProxy.getGame(key, moveCount, token))
+        .doOnSuccess((game) -> {
+          game.setUser(this.game.getUser());
+          this.game = game;
+        });
   }
 
 
