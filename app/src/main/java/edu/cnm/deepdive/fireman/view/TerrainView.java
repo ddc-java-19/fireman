@@ -166,22 +166,21 @@ public class TerrainView extends View {
     if (event.getAction() == MotionEvent.ACTION_UP) {
       float x = event.getX();
       float y = event.getY();
-      int row = (int) (y / plotSize);
-      int col = (int) (x / plotSize);
+      Integer row = (int) (y / plotSize);
+      Integer col = (int) (x / plotSize);
       onMoveListener.onMove(row, col);
-    } else if (event.getAction() == MotionEvent.ACTION_UP && BORDER_WIDTH == event.getAction()
-        && game.isUserFireman()) {
-      for (int i = 0; i < BORDER_WIDTH; i++) {
-        onMoveListener.onMove(i, 0);
+      if (row < 0 || row >= Game.SIZE) {
+        row = null;
       }
-    } else if (event.getAction() == MotionEvent.ACTION_UP && BORDER_WIDTH == event.getAction()
-        && game.isUserFireman()) {
-      for (int i = 0; i < BORDER_WIDTH; i++) {
-        onMoveListener.onMove(0, i);
+      if (col < 0 || col >= Game.SIZE) {
+        col = null;
       }
-    } else {
+      if (row != null || col != null) {
+        onMoveListener.onMove(row, col);
+      }
       return true;
     }
+
     return translateTouchEvent(MotionEvent.obtain(event), plotSize);
 
   }
