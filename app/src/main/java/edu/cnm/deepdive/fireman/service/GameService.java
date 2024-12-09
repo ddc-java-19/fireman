@@ -13,13 +13,16 @@ public class GameService {
 
   private final GoogleSignInService signInService;
   private final WebServiceProxy webServiceProxy;
+  private final LongPollWebServiceProxy longPollWebServiceProxy;
 
   private Game game;
 
   @Inject
-  GameService(GoogleSignInService signInService, WebServiceProxy webServiceProxy) {
+  GameService(GoogleSignInService signInService, WebServiceProxy webServiceProxy,
+      LongPollWebServiceProxy longPollWebServiceProxy) {
     this.signInService = signInService;
     this.webServiceProxy = webServiceProxy;
+    this.longPollWebServiceProxy = longPollWebServiceProxy;
   }
 
   public Single<Game> startGame() {
@@ -43,11 +46,17 @@ public class GameService {
         .flatMap((token) -> webServiceProxy.getGame(key, token));
   }
 
-  public Single<Game> move(Move move){
+  public Single<Game> move(Move move) {
     return signInService
         .refreshToken()
         .observeOn(Schedulers.io())
         .flatMap((token) -> webServiceProxy.move(game.getKey(), move, token));
+  }
+
+  public Single<Game> loadGame(String key, int moveCount){
+    return signInService.refreshToken()
+        .observeOn(Schedulers.io())
+        .flatMap((token) -> longPollWebServiceProxy.getGame(key, moveCount, token));
   }
 
 

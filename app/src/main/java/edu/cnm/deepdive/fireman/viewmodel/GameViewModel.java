@@ -33,11 +33,11 @@ public class GameViewModel extends ViewModel implements DefaultLifecycleObserver
     startGame();
   }
 
-  public void startGame(){
+  public void startGame() {
     throwable.setValue(null);
     gameService.startGame()
         .subscribe(
-            game::postValue,
+            this::refreshGame,
             this::postThrowable,
             pending
         );
@@ -48,23 +48,12 @@ public class GameViewModel extends ViewModel implements DefaultLifecycleObserver
     throwable.setValue(null);
     gameService.move(move)
         .subscribe(
-            game::postValue,
+            this::refreshGame,
             this::postThrowable,
             pending
         );
   }
 
-  // TODO: 12/4/2024 implement loadGame() and move() from GameService.
-//  public void loadGame(String key){
-//    throwable.setValue(null);
-//    gameService
-//        .loadGame(key)
-//        .subscribe(
-//
-//
-//            )
-//
-//  }
 
   @Override
   public void onStop(@NonNull LifecycleOwner owner) {
@@ -78,6 +67,31 @@ public class GameViewModel extends ViewModel implements DefaultLifecycleObserver
 
   public LiveData<Throwable> getThrowable() {
     return throwable;
+  }
+
+
+  private void refreshGame(Game game) {
+    this.game.postValue(game);
+    if (game.getFinished() == null) {
+      loadGame(game.getKey(), game.getMoveCount());
+    }
+  }
+
+  private void loadGame(String key, int moveCount) {
+    throwable.postValue(null);
+    gameService
+        .loadGame(key, moveCount)
+        .subscribe(
+            (game) -> {
+              this.game.postValue(game);
+              if (game.getMoveCount() == moveCount) {
+                loadGame(key, moveCount);
+              }
+            },
+            this::postThrowable,
+            pending
+        );
+
   }
 
   private void postThrowable(Throwable throwable) {

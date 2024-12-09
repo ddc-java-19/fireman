@@ -17,6 +17,8 @@ public class Game {
   @Expose(serialize = false)
   private final Instant started;
   @Expose(serialize = false)
+  private final int moveCount;
+  @Expose(serialize = false)
   private final Instant finished;
   @Expose(serialize = false)
   private final int score;
@@ -33,11 +35,12 @@ public class Game {
 
   private User user;
 
-  public Game(String key, Instant started, Instant finished, int score, boolean turn, Wind wind,
+  public Game(String key, Instant started, int moveCount, Instant finished, int score, boolean turn, Wind wind,
       User arsonist,
       User fireman, List<Plot> plots) {
     this.key = key;
     this.started = started;
+    this.moveCount = moveCount;
     this.finished = finished;
     this.score = score;
     this.turn = turn;
@@ -50,6 +53,7 @@ public class Game {
   public Game() {
     this.key = null;
     this.started = null;
+    this.moveCount = 0;
     this.finished = null;
     this.score = 0;
     this.turn = false;
@@ -69,6 +73,10 @@ public class Game {
 
   public Instant getStarted() {
     return started;
+  }
+
+  public int getMoveCount() {
+    return moveCount;
   }
 
   public Instant getFinished() {
