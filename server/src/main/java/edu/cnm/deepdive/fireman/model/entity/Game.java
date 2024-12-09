@@ -65,6 +65,10 @@ public class Game {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Instant finished;
 
+  @Column(nullable = true, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private Boolean firemanSurrender;
+
   @Column(nullable = false, updatable = true)
   private int score;
 
@@ -121,6 +125,14 @@ public class Game {
 
   public void setFinished(Instant finished) {
     this.finished = finished;
+  }
+
+  public Boolean getFiremanSurrender() {
+    return firemanSurrender;
+  }
+
+  public void setFiremanSurrender(Boolean firemanSurrender) {
+    this.firemanSurrender = firemanSurrender;
   }
 
   public int getScore() {

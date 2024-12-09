@@ -102,6 +102,19 @@ public class GameService implements AbstractGameService {
         .orElseThrow();
   }
 
+  @Override
+  public Game surrender(UUID key, User user) {
+    return gameRepository.findGameByKeyAndUser(key, user)
+        .map((game) -> {
+          // TODO: 12/9/2024 check if game is not finished.
+          // TODO: 12/9/2024 check to see if current user is fireman or arsonist;if fireman then set the fireman surrender field true; otherwise set it to false
+          // TODO: 12/9/2024 Mark game as finished.
+          return gameRepository.save(game);
+        })
+
+        .orElseThrow();
+  }
+
   private static void handleArsonistMove(Game game, Integer row, Integer column) {
     game.getPlots()
         .stream()

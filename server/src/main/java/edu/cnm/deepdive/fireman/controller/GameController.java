@@ -79,5 +79,9 @@ public class GameController {
     return gameService.move(key, move, userService.getCurrent());
   }
 
+  @PostMapping(path = "/games/{key}/surrender")
+  public Game surrender(@PathVariable UUID key) {
+
+  }
 
 }

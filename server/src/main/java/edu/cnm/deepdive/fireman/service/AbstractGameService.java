@@ -15,4 +15,5 @@ public interface AbstractGameService {
 
   int getMoveCount(UUID key, User user);
 
+  Game surrender(UUID key, User user);
 }
