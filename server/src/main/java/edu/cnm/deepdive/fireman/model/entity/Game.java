@@ -69,6 +69,10 @@ public class Game {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Boolean firemanSurrender;
 
+  @Column(nullable = true, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private Boolean firemanWin;
+
   @Column(nullable = false, updatable = true)
   private int score;
 
@@ -133,6 +137,14 @@ public class Game {
 
   public void setFiremanSurrender(Boolean firemanSurrender) {
     this.firemanSurrender = firemanSurrender;
+  }
+
+  public Boolean getFiremanWin() {
+    return firemanWin;
+  }
+
+  public void setFiremanWin(Boolean firemanWin) {
+    this.firemanWin = firemanWin;
   }
 
   public int getScore() {

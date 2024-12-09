@@ -7,6 +7,7 @@ import edu.cnm.deepdive.fireman.model.entity.Game;
 import edu.cnm.deepdive.fireman.model.entity.Move;
 import edu.cnm.deepdive.fireman.model.entity.Plot;
 import edu.cnm.deepdive.fireman.model.entity.User;
+import java.time.Instant;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -59,7 +60,8 @@ public class GameService implements AbstractGameService {
             plot.setColumn(colIndex);
             plot.setGame(gameToPlay);
             plot.setPlotState(
-                (rng.nextFloat() < initialFireProbability) ? PlotState.ON_FIRE: PlotState.BURNABLE);
+                (rng.nextFloat() < initialFireProbability) ? PlotState.ON_FIRE
+                    : PlotState.BURNABLE);
             plots.add(plot);
           }
         }
@@ -91,6 +93,7 @@ public class GameService implements AbstractGameService {
           // TODO: 11/21/2024 set fields of Move object. Add to MovesList in the game.
           game.setFiremansTurn(!game.isFiremansTurn());
           game.setMoveCount(game.getMoveCount() + 1);
+          // TODO: 12/9/2024 If no plots are on fire and no plots are burnable, count up totals and set firemanWin field as well as finished field accordingly.
           return gameRepository.save(game);
         })
         .orElseThrow();
@@ -103,12 +106,16 @@ public class GameService implements AbstractGameService {
   }
 
   @Override
-  public Game surrender(UUID key, User user) {
-    return gameRepository.findGameByKeyAndUser(key, user)
+  public Game surrender(UUID key, User currentUser) {
+    return gameRepository.findGameByKeyAndUser(key, currentUser)
         .map((game) -> {
-          // TODO: 12/9/2024 check if game is not finished.
-          // TODO: 12/9/2024 check to see if current user is fireman or arsonist;if fireman then set the fireman surrender field true; otherwise set it to false
-          // TODO: 12/9/2024 Mark game as finished.
+          if (game.isCompleted()) {
+            throw new GameOverException("Game is completed");
+          }
+          boolean firemanSurrender = game.getFireman().equals(currentUser);
+          game.setFiremanSurrender(firemanSurrender);
+          game.setFiremanWin(!firemanSurrender);
+          game.setFinished(Instant.now());
           return gameRepository.save(game);
         })
 
@@ -130,19 +137,19 @@ public class GameService implements AbstractGameService {
     int rowUpperBound;
     int colUpperBound;
     if (spreadInRow) {
-      rowLowerBound = - 1;
+      rowLowerBound = -1;
       rowUpperBound = 1;
-      colLowerBound = - wind.getColumnOffset();
+      colLowerBound = -wind.getColumnOffset();
       colUpperBound = colLowerBound;
     } else {
-      rowLowerBound = - wind.getRowOffset();
+      rowLowerBound = -wind.getRowOffset();
       rowUpperBound = rowLowerBound;
-      colLowerBound = - 1;
+      colLowerBound = -1;
       colUpperBound = 1;
     }
     game.getPlots()
         .forEach(plot -> {
-          if(plot.getPlotState() == PlotState.BURNABLE
+          if (plot.getPlotState() == PlotState.BURNABLE
               && game.getPlots()
               .stream()
               .anyMatch((p) -> p.getPlotState() == PlotState.ON_FIRE
@@ -153,7 +160,7 @@ public class GameService implements AbstractGameService {
               )
           ) {
             plot.setPlotState(plot.getPlotState().nextStateSpread());
-          } else{
+          } else {
             plot.setPlotState(plot.getPlotState().nextState(null));
           }
         });
