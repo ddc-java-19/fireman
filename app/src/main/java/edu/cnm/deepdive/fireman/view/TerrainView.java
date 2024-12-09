@@ -33,12 +33,12 @@ public class TerrainView extends View {
   };
 
   private static final int[] stateColorIds = {
-    R.color.burnable,
-    R.color.on_fire,
-    R.color.wet,
-    R.color.soaked,
-    R.color.unburnable,
-    R.color.charred
+      R.color.burnable,
+      R.color.on_fire,
+      R.color.wet,
+      R.color.soaked,
+      R.color.unburnable,
+      R.color.charred
   };
 
 
@@ -137,7 +137,8 @@ public class TerrainView extends View {
       canvas.drawRect(left, top, right, bottom, plotPaint);
       Drawable drawable = stateDrawables[position];
       if (drawable != null) {
-        drawable.setBounds(Math.round(left), Math.round(top), Math.round(right), Math.round(bottom));
+        drawable.setBounds(Math.round(left), Math.round(top), Math.round(right),
+            Math.round(bottom));
         drawable.draw(canvas);
       }
     }
@@ -168,9 +169,21 @@ public class TerrainView extends View {
       int row = (int) (y / plotSize);
       int col = (int) (x / plotSize);
       onMoveListener.onMove(row, col);
-// TODO: 12/7/2024 Add border moves for fireman. greater than game.size
+    } else if (event.getAction() == MotionEvent.ACTION_UP && BORDER_WIDTH == event.getAction()
+        && game.isUserFireman()) {
+      for (int i = 0; i < BORDER_WIDTH; i++) {
+        onMoveListener.onMove(i, 0);
+      }
+    } else if (event.getAction() == MotionEvent.ACTION_UP && BORDER_WIDTH == event.getAction()
+        && game.isUserFireman()) {
+      for (int i = 0; i < BORDER_WIDTH; i++) {
+        onMoveListener.onMove(0, i);
+      }
+    } else {
+      return true;
     }
-    return true;
+    return translateTouchEvent(MotionEvent.obtain(event), plotSize);
+
   }
 
   private int getControlBorderWidth(Game game) {

@@ -11,7 +11,6 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import edu.cnm.deepdive.fireman.databinding.FragmentGameBinding;
-import edu.cnm.deepdive.fireman.view.TerrainView;
 import edu.cnm.deepdive.fireman.viewmodel.GameViewModel;
 
 public class GameFragment extends Fragment {
