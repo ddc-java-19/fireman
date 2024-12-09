@@ -178,10 +178,9 @@ public class TerrainView extends View {
       if (row != null || col != null) {
         onMoveListener.onMove(row, col);
       }
-      return true;
     }
+      return true;
 
-    return translateTouchEvent(MotionEvent.obtain(event), plotSize);
 
   }
 
