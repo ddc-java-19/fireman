@@ -70,6 +70,7 @@ public class GameFragment extends Fragment {
               .mapToObj((count) -> String.valueOf(count))
               .toArray(String[]::new);
           // TODO: 12/9/2024  use the strings in the above array to populate textViews in the UI.
+          binding.compassDirections.setImageLevel(game.getWind().ordinal());
         });
   }
 

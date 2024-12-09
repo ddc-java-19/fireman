@@ -28,48 +28,14 @@
     app:useCompatPadding="true"/>
 
   <ImageView
-    android:id="@+id/compass_north"
+    android:id="@+id/compass_directions"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:contentDescription="@string/north_description"
+    android:contentDescription="@string/wind_direction_description"
     app:layout_constraintTop_toBottomOf="@id/terrain"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    android:src="@drawable/arrow_up"/>
-
-  <ImageView
-    android:id="@+id/compass_east"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:contentDescription="@string/east_description"
-    app:layout_constraintTop_toBottomOf="@id/terrain"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:src="@drawable/arrow_right"/>
-
-  <ImageView
-  android:id="@+id/compass_south"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:contentDescription="@string/east_description"
-  app:layout_constraintTop_toBottomOf="@id/terrain"
-  app:layout_constraintBottom_toBottomOf="parent"
-  app:layout_constraintStart_toStartOf="parent"
-  app:layout_constraintEnd_toEndOf="parent"
-  android:src="@drawable/arrow_down"/>
-
-
-  <ImageView
-    android:id="@+id/compass_west"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:contentDescription="@string/east_description"
-    app:layout_constraintTop_toBottomOf="@id/terrain"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:src="@drawable/arrow_left"/>
+    android:src="@drawable/wind_directions"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
