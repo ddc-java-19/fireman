@@ -8,10 +8,13 @@ import edu.cnm.deepdive.fireman.model.entity.Move;
 import edu.cnm.deepdive.fireman.model.entity.Plot;
 import edu.cnm.deepdive.fireman.model.entity.User;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 import java.util.random.RandomGenerator;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -59,12 +62,15 @@ public class GameService implements AbstractGameService {
             plot.setRow(rowIndex);
             plot.setColumn(colIndex);
             plot.setGame(gameToPlay);
-            plot.setPlotState(
-                (rng.nextFloat() < initialFireProbability) ? PlotState.ON_FIRE
-                    : PlotState.BURNABLE);
+            plot.setPlotState(PlotState.BURNABLE);
             plots.add(plot);
           }
         }
+        Collections.shuffle(plots, rng);
+        int initialOnFirePlots = Math.round(initialFireProbability * plots.size());
+        plots.subList(0, initialOnFirePlots)
+            .forEach((plot) -> plot.setPlotState(PlotState.ON_FIRE));
+        game.setMoveCount(game.getMoveCount() + 1);
       }
     }
     return gameRepository.save(gameToPlay);
@@ -94,7 +100,7 @@ public class GameService implements AbstractGameService {
           game.setFiremansTurn(!game.isFiremansTurn());
           game.setMoveCount(game.getMoveCount() + 1);
           int onFire = countPlotState(game.getPlots(), PlotState.ON_FIRE);
-          if(onFire == 0){
+          if (onFire == 0) {
             int charred = countPlotState(game.getPlots(), PlotState.CHARRED);
             game.setFiremanWin(charred <= game.getPlots().size() / 2);
             game.setFinished(Instant.now());
@@ -121,9 +127,9 @@ public class GameService implements AbstractGameService {
           game.setFiremanSurrender(firemanSurrender);
           game.setFiremanWin(!firemanSurrender);
           game.setFinished(Instant.now());
+          game.setMoveCount(game.getMoveCount() + 1);
           return gameRepository.save(game);
         })
-
         .orElseThrow();
   }
 
@@ -152,23 +158,24 @@ public class GameService implements AbstractGameService {
       colLowerBound = -1;
       colUpperBound = 1;
     }
-    game.getPlots()
-        .forEach(plot -> {
-          if (plot.getPlotState() == PlotState.BURNABLE
-              && game.getPlots()
-              .stream()
-              .anyMatch((p) -> p.getPlotState() == PlotState.ON_FIRE
-                  && p.getRow() >= plot.getRow() + rowLowerBound
-                  && p.getRow() <= plot.getRow() + rowUpperBound
-                  && p.getColumn() >= plot.getColumn() + colLowerBound
-                  && p.getColumn() <= plot.getColumn() + colUpperBound
-              )
-          ) {
-            plot.setPlotState(plot.getPlotState().nextStateSpread());
-          } else {
-            plot.setPlotState(plot.getPlotState().nextState(null));
-          }
-        });
+    Set<Plot> spreadPlots = game.getPlots()
+        .stream()
+        .filter((plot) -> plot.getPlotState() == PlotState.BURNABLE
+            && game.getPlots()
+            .stream()
+            .anyMatch((p) -> p.getPlotState() == PlotState.ON_FIRE
+                && p.getRow() >= plot.getRow() + rowLowerBound
+                && p.getRow() <= plot.getRow() + rowUpperBound
+                && p.getColumn() >= plot.getColumn() + colLowerBound
+                && p.getColumn() <= plot.getColumn() + colUpperBound
+            ))
+        .collect(Collectors.toSet());
+    Set<Plot> nonSpreadPlots = game.getPlots()
+        .stream()
+        .filter((plot) -> !spreadPlots.contains(plot))
+        .collect(Collectors.toSet());
+    spreadPlots.forEach((plot) -> plot.setPlotState(plot.getPlotState().nextStateSpread()));
+    nonSpreadPlots.forEach((plot) -> plot.setPlotState(plot.getPlotState().nextState(null)));
   }
 
   private static void handleFiremanMove(Game game, Integer row, Integer column) {
