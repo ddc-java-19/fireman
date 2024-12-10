@@ -7,10 +7,14 @@ import edu.cnm.deepdive.fireman.model.entity.Game;
 import edu.cnm.deepdive.fireman.model.entity.Move;
 import edu.cnm.deepdive.fireman.model.entity.Plot;
 import edu.cnm.deepdive.fireman.model.entity.User;
+import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 import java.util.random.RandomGenerator;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -21,7 +25,6 @@ import org.springframework.stereotype.Service;
 public class GameService implements AbstractGameService {
 
   private final GameRepository gameRepository;
-  private final AbstractUserService userService;
   private final RandomGenerator rng;
   private final int boardSize;
   private final float initialFireProbability;
@@ -31,16 +34,14 @@ public class GameService implements AbstractGameService {
       RandomGenerator rng, @Value("${fireman.board-size}") int boardSize,
       @Value("${fireman.initial-fire-probablility}") float initialFireProbability) {
     this.gameRepository = gameRepository;
-    this.userService = userService;
     this.boardSize = boardSize;
     this.rng = rng;
     this.initialFireProbability = initialFireProbability;
   }
 
   @Override
-  public Game startJoin(Game game) {
+  public Game startJoin(Game game, User currentUser) {
     Game gameToPlay;
-    User currentUser = userService.getCurrent();
     List<Game> games = gameRepository.findCurrentGames(currentUser);
     if (!games.isEmpty()) {
       gameToPlay = games.getFirst();
@@ -49,8 +50,8 @@ public class GameService implements AbstractGameService {
       if (openGames.isEmpty()) {
         gameToPlay = game;
         gameToPlay.setArsonist(currentUser);
-        gameToPlay.setWind(Wind.NORTH);
-        // TODO: 11/20/2024 randomize wind direction on game start.
+        Wind[] winds = Wind.values();
+        gameToPlay.setWind(winds[rng.nextInt(winds.length)]);
       } else {
         gameToPlay = openGames.getFirst();
         gameToPlay.setFireman(currentUser);
@@ -61,23 +62,28 @@ public class GameService implements AbstractGameService {
             plot.setRow(rowIndex);
             plot.setColumn(colIndex);
             plot.setGame(gameToPlay);
-            plot.setPlotState(
-                (rng.nextFloat() < initialFireProbability) ? PlotState.ON_FIRE: PlotState.BURNABLE);
+            plot.setPlotState(PlotState.BURNABLE);
             plots.add(plot);
           }
         }
+        Collections.shuffle(plots, rng);
+        int initialOnFirePlots = Math.round(initialFireProbability * plots.size());
+        plots.subList(0, initialOnFirePlots)
+            .forEach((plot) -> plot.setPlotState(PlotState.ON_FIRE));
+        game.setMoveCount(game.getMoveCount() + 1);
       }
     }
     return gameRepository.save(gameToPlay);
   }
 
-  public Game get(UUID key) {
-    return gameRepository.findGameByKeyAndUser(key, userService.getCurrent())
+  @Override
+  public Game get(UUID key, User user) {
+    return gameRepository.findGameByKeyAndUser(key, user)
         .orElseThrow();
   }
 
-  public Game move(UUID key, Move move) {
-    User currentUser = userService.getCurrent();
+  @Override
+  public Game move(UUID key, Move move, User currentUser) {
     return gameRepository.findStartedGameByKeyAndUser(key, currentUser)
         .map((game) -> {
           Integer column = move.getColumn();
@@ -86,12 +92,42 @@ public class GameService implements AbstractGameService {
           validateMove(game, userIsFireman, row, column);
           if (userIsFireman) {
             handleFiremanMove(game, row, column);
-            handleTime(game, row, column);
+            handleTime(game);
           } else {
             handleArsonistMove(game, row, column);
           }
           // TODO: 11/21/2024 set fields of Move object. Add to MovesList in the game.
           game.setFiremansTurn(!game.isFiremansTurn());
+          game.setMoveCount(game.getMoveCount() + 1);
+          int onFire = countPlotState(game.getPlots(), PlotState.ON_FIRE);
+          if (onFire == 0) {
+            int charred = countPlotState(game.getPlots(), PlotState.CHARRED);
+            game.setFiremanWin(charred <= game.getPlots().size() / 2);
+            game.setFinished(Instant.now());
+          }
+          return gameRepository.save(game);
+        })
+        .orElseThrow();
+  }
+
+  @Override
+  public int getMoveCount(UUID key, User currentUser) {
+    return gameRepository.getMoveCount(key, currentUser)
+        .orElseThrow();
+  }
+
+  @Override
+  public Game surrender(UUID key, User currentUser) {
+    return gameRepository.findGameByKeyAndUser(key, currentUser)
+        .map((game) -> {
+          if (game.isCompleted()) {
+            throw new GameOverException("Game is completed");
+          }
+          boolean firemanSurrender = game.getFireman().equals(currentUser);
+          game.setFiremanSurrender(firemanSurrender);
+          game.setFiremanWin(!firemanSurrender);
+          game.setFinished(Instant.now());
+          game.setMoveCount(game.getMoveCount() + 1);
           return gameRepository.save(game);
         })
         .orElseThrow();
@@ -104,7 +140,7 @@ public class GameService implements AbstractGameService {
         .forEach(plot -> plot.setPlotState(plot.getPlotState().nextState(false)));
   }
 
-  private static void handleTime(Game game, Integer row, Integer column) {
+  private static void handleTime(Game game) {
     Wind wind = game.getWind();
     boolean spreadInRow = wind.getColumnOffset() != 0;
     int rowLowerBound;
@@ -112,28 +148,34 @@ public class GameService implements AbstractGameService {
     int rowUpperBound;
     int colUpperBound;
     if (spreadInRow) {
-      rowLowerBound = row - 1;
-      rowUpperBound = row + 1;
-      colLowerBound = column + wind.getColumnOffset();
+      rowLowerBound = -1;
+      rowUpperBound = 1;
+      colLowerBound = -wind.getColumnOffset();
       colUpperBound = colLowerBound;
     } else {
-      rowLowerBound = row + wind.getRowOffset();
+      rowLowerBound = -wind.getRowOffset();
       rowUpperBound = rowLowerBound;
-      colLowerBound = column - 1;
-      colUpperBound = column + 1;
+      colLowerBound = -1;
+      colUpperBound = 1;
     }
-    game.getPlots()
+    Set<Plot> spreadPlots = game.getPlots()
         .stream()
-        .filter((plot) -> plot.getRow() >= rowLowerBound && plot.getRow() <= rowUpperBound
-            && plot.getColumn() >= colLowerBound && plot.getColumn() <= colUpperBound)
-        .forEach(plot -> {
-          if (plot.getRow() >= rowLowerBound && plot.getRow() <= rowUpperBound
-              && plot.getColumn() >= colLowerBound && plot.getColumn() <= colUpperBound) {
-            plot.setPlotState(plot.getPlotState().nextStateSpread());
-          } else {
-            plot.setPlotState(plot.getPlotState().nextState(null));
-          }
-        });
+        .filter((plot) -> plot.getPlotState() == PlotState.BURNABLE
+            && game.getPlots()
+            .stream()
+            .anyMatch((p) -> p.getPlotState() == PlotState.ON_FIRE
+                && p.getRow() >= plot.getRow() + rowLowerBound
+                && p.getRow() <= plot.getRow() + rowUpperBound
+                && p.getColumn() >= plot.getColumn() + colLowerBound
+                && p.getColumn() <= plot.getColumn() + colUpperBound
+            ))
+        .collect(Collectors.toSet());
+    Set<Plot> nonSpreadPlots = game.getPlots()
+        .stream()
+        .filter((plot) -> !spreadPlots.contains(plot))
+        .collect(Collectors.toSet());
+    spreadPlots.forEach((plot) -> plot.setPlotState(plot.getPlotState().nextStateSpread()));
+    nonSpreadPlots.forEach((plot) -> plot.setPlotState(plot.getPlotState().nextState(null)));
   }
 
   private static void handleFiremanMove(Game game, Integer row, Integer column) {
@@ -176,6 +218,13 @@ public class GameService implements AbstractGameService {
     if (!userIsFireman && (row == null || column == null)) {
       throw new InsufficientInformationException();
     }
+  }
+
+  private int countPlotState(List<Plot> plots, PlotState state) {
+    return (int) plots
+        .stream()
+        .filter((plot) -> plot.getPlotState() == state)
+        .count();
   }
 
 

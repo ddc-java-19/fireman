@@ -5,8 +5,6 @@
   <string name="sign_out_title">Sign out</string>
   <string name="new_game_title">Start new game</string>
 
-  <string name="box_size_key">box_size</string>
-  <string name="box_size_title">Box size</string>
 
   <string name="night_mode_key">night_mode</string>
   <string name="night_mode_title">Dark mode</string>
@@ -25,14 +23,24 @@
   <string name="completed_header">Completed</string>
   <string name="duration_format">%1$02d:%2$02d</string>
   <string name="scores_label">Scores\n</string>
-  <string name="game_label">Play</string>
+  <string name="game_label">Fireman</string>
   <string name="authentication_failure_message">Unable to sign in with provided credentials.</string>
+  <string name="user_title">User</string>
+  <string name="fireman_or_arsonist_title">Fireman or Arsonist</string>
 
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="fireman">FIREMAN</string>
+  <string name="view_stats_description">Navigate to statistics view</string>
+  <string name="stats_label">Stats</string>
+  <string name="sign_out">Sign out</string>
+  <string name="back_to_game">Navigate back to game.</string>
+  <string name="wind_direction_description">Wind direction</string>
   <string-array name="night_mode_values">
     <item>@string/night_mode_default</item>
     <item>yes</item>
     <item>no</item>
   </string-array>
+  <!-- TODO: Remove or change this placeholder text -->
   <string-array name="night_mode_entries">
     <item>Use device setting</item>
     <item>On</item>

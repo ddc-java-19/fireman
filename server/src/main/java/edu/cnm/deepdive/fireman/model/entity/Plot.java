@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.util.Objects;
 
 @SuppressWarnings({"JpaDataSourceORMInspection", "unused", "DefaultAnnotationParam"})
 @Entity
@@ -74,5 +75,23 @@ public class Plot {
 
   public void setGame(Game game) {
     this.game = game;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(id);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    boolean result;
+    if (obj == this) {
+      result = true;
+    }else if(obj instanceof Plot other) {
+      result = id != null && id.equals(other.id);
+    }else{
+      result = false;
+    }
+    return result;
   }
 }

@@ -1,6 +1,8 @@
 package edu.cnm.deepdive.fireman.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.cnm.deepdive.fireman.model.Wind;
 import jakarta.persistence.CascadeType;
@@ -34,7 +36,11 @@ import org.hibernate.annotations.CreationTimestamp;
         @Index(columnList = "score, finished")
     }
 )
+
+@JsonInclude(Include.NON_NULL)
 public class Game {
+
+  public static final int SIZE = 10;
 
   @Id
   @GeneratedValue
@@ -52,10 +58,22 @@ public class Game {
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Instant started;
 
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  @Column(nullable = false, updatable = true)
+  private int moveCount;
+
   @Temporal(TemporalType.TIMESTAMP)
   @Column(nullable = true, updatable = true)
   @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   private Instant finished;
+
+  @Column(nullable = true, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private Boolean firemanSurrender;
+
+  @Column(nullable = true, updatable = true)
+  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+  private Boolean firemanWin;
 
   @Column(nullable = false, updatable = true)
   private int score;
@@ -99,12 +117,36 @@ public class Game {
     return started;
   }
 
+  public int getMoveCount() {
+    return moveCount;
+  }
+
+  public void setMoveCount(int moveCount) {
+    this.moveCount = moveCount;
+  }
+
   public Instant getFinished() {
     return finished;
   }
 
   public void setFinished(Instant finished) {
     this.finished = finished;
+  }
+
+  public Boolean getFiremanSurrender() {
+    return firemanSurrender;
+  }
+
+  public void setFiremanSurrender(Boolean firemanSurrender) {
+    this.firemanSurrender = firemanSurrender;
+  }
+
+  public Boolean getFiremanWin() {
+    return firemanWin;
+  }
+
+  public void setFiremanWin(Boolean firemanWin) {
+    this.firemanWin = firemanWin;
   }
 
   public int getScore() {

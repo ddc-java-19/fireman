@@ -35,7 +35,7 @@ public enum PlotState {
   WET {
     @Override
     public PlotState nextState(Boolean firemanMove) {
-      return (firemanMove == null)
+      return (firemanMove == null || !firemanMove)
           ? BURNABLE
           : this;
     }

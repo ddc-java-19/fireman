@@ -7,10 +7,13 @@ import java.util.UUID;
 
 public interface AbstractGameService {
 
-  Game startJoin(Game game);
+  Game startJoin(Game game, User user);
 
-  Game get(UUID key);
+  Game get(UUID key, User user);
 
-  Game move(UUID key, Move move);
+  Game move(UUID key, Move move, User user);
 
+  int getMoveCount(UUID key, User user);
+
+  Game surrender(UUID key, User user);
 }

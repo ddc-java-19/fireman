@@ -2,6 +2,7 @@ package edu.cnm.deepdive.fireman.model.dao;
 
 import edu.cnm.deepdive.fireman.model.entity.Game;
 import edu.cnm.deepdive.fireman.model.entity.User;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -94,4 +95,8 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
   @Query(FIND_STARTED_BY_USER_AND_KEY)
   Optional<Game> findStartedGameByKeyAndUser(UUID key, User user);
+
+  @Query("SELECT g.moveCount FROM Game AS g WHERE g.externalKey = :key AND (g.fireman = :user OR g.arsonist = :user)")
+  Optional<Integer> getMoveCount(UUID key, User user);
+
 }
