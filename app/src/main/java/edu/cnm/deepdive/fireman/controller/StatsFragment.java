@@ -33,9 +33,15 @@ public class StatsFragment extends Fragment {
       Bundle savedInstanceState) {
     binding = FragmentStatsBinding.inflate(inflater, container, false);
     binding.viewGame.setOnClickListener((v) ->
-            Navigation.findNavController(binding.getRoot())
-                .navigate(StatsFragmentDirections.navigateToGame()));
+        Navigation.findNavController(binding.getRoot())
+            .navigate(StatsFragmentDirections.navigateToGame()));
     return binding.getRoot();
+  }
+
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
   }
 
   @Override

@@ -7,6 +7,35 @@
   android:layout_height="match_parent"
   tools:context=".controller.LoginActivity">
 
+  <ImageView
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:src="@drawable/fireman_background"
+    android:alpha="0.9"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+  <TextView
+    android:id="@+id/fireman_title"
+    android:text="@string/fireman_game_title"
+    android:textSize="@dimen/main_title_size"
+    android:textAppearance="@color/common_google_signin_btn_text_dark"
+    android:textAlignment="center"
+    android:background="@color/material_dynamic_neutral95"
+    android:backgroundTint="#99999999"
+    android:layout_height="wrap_content"
+    android:layout_width="@dimen/text_box_size"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/sign_in"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.7"
+    tools:ignore="SpUsage"/>
+
+
   <com.google.android.gms.common.SignInButton
     android:id="@+id/sign_in"
     android:layout_width="wrap_content"
@@ -15,5 +44,6 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintVertical_bias="0.45"/>
+    app:layout_constraintVertical_bias="0.6"
+   />
 </androidx.constraintlayout.widget.ConstraintLayout>
