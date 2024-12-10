@@ -1,6 +1,6 @@
 ---
-title: User Interface
-description: "Wireframe diagrams and..."
+title: User Instructions
+description: "Game instructions and how to operate the app"
 order: 10
 ---
 
