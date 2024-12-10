@@ -25,7 +25,8 @@
     android:contentDescription="@string/view_stats_description"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:useCompatPadding="true"/>
+    app:useCompatPadding="true"
+    android:src="@drawable/graph"/>
 
   <ImageView
     android:id="@+id/compass_directions"
@@ -37,5 +38,57 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     android:src="@drawable/wind_directions"/>
+
+  <TextView
+    android:id="@+id/game_legend_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:text="@string/icon_color_legend"
+    app:layout_constraintTop_toBottomOf="@id/terrain"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+  <ImageView
+    android:id="@+id/on_fire_legend_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:contentDescription="@string/on_fire_legend_description"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/game_legend_text"
+    app:layout_constraintBottom_toTopOf="@+id/on_fire_legend_text"
+    app:layout_constraintEnd_toStartOf="@+id/wet_legend_image"
+    android:src="@drawable/flame"/>
+
+  <TextView
+    android:id="@+id/on_fire_legend_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/on_fire_legend_image"
+    android:text="@string/on_fire_text"/>
+
+  <ImageView
+    android:id="@+id/wet_legend_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:contentDescription="@string/wet_legend_description"
+    app:layout_constraintTop_toBottomOf="@+id/game_legend_text"
+    app:layout_constraintStart_toEndOf="@+id/on_fire_legend_image"/>
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    app:layout_constraintStart_toEndOf="@+id/on_fire_legend_text"
+    app:layout_constraintTop_toBottomOf="@+id/wet_legend_image"
+    android:text="@string/wet"/>
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
