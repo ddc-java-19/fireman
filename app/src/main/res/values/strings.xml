@@ -41,6 +41,7 @@
   <string name="wet_legend_description">Wet</string>
   <string name="wet">Wet</string>
   <string name="fireman_game_title">FIREMAN</string>
+  <string name="burnable">Burnable</string>
   <string-array name="night_mode_values">
     <item>@string/night_mode_default</item>
     <item>yes</item>

@@ -46,18 +46,20 @@
     android:layout_margin="@dimen/half_dynamic_spacing"
     android:text="@string/icon_color_legend"
     app:layout_constraintTop_toBottomOf="@id/terrain"
-    app:layout_constraintStart_toStartOf="parent"/>
+    app:layout_constraintStart_toStartOf="parent"
+    />
 
   <ImageView
     android:id="@+id/on_fire_legend_image"
-    android:layout_width="wrap_content"
+    android:layout_width="24dp"
     android:layout_height="wrap_content"
+    android:scaleType="fitCenter"
+    android:adjustViewBounds="true"
     android:layout_margin="@dimen/half_dynamic_spacing"
     android:contentDescription="@string/on_fire_legend_description"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/game_legend_text"
-    app:layout_constraintBottom_toTopOf="@+id/on_fire_legend_text"
-    app:layout_constraintEnd_toStartOf="@+id/wet_legend_image"
+    app:layout_constraintTop_toBottomOf="@+id/burnable_legend_image"
+    app:layout_constraintEnd_toStartOf="@+id/on_fire_legend_text"
     android:src="@drawable/flame"/>
 
   <TextView
@@ -65,8 +67,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_dynamic_spacing"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/on_fire_legend_image"
+    app:layout_constraintStart_toEndOf="@id/on_fire_legend_image"
+    app:layout_constraintTop_toBottomOf="@+id/burnable_legend_text"
     android:text="@string/on_fire_text"/>
 
   <ImageView
@@ -75,17 +77,36 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_dynamic_spacing"
     android:contentDescription="@string/wet_legend_description"
-    app:layout_constraintTop_toBottomOf="@+id/game_legend_text"
-    app:layout_constraintStart_toEndOf="@+id/on_fire_legend_image"/>
+    app:layout_constraintTop_toBottomOf="@+id/on_fire_legend_image"
+    app:layout_constraintStart_toStartOf="parent"
+    android:src="@drawable/waves"/>
 
   <TextView
+    android:id="@+id/wet_legend_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_dynamic_spacing"
-    app:layout_constraintStart_toEndOf="@+id/on_fire_legend_text"
-    app:layout_constraintTop_toBottomOf="@+id/wet_legend_image"
+    app:layout_constraintStart_toEndOf="@+id/wet_legend_image"
+    app:layout_constraintTop_toBottomOf="@+id/on_fire_legend_text"
     android:text="@string/wet"/>
 
+  <ImageView
+    android:id="@+id/burnable_legend_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/game_legend_text"
+    app:layout_constraintEnd_toStartOf="@+id/burnable_legend_text"
+    android:src="@drawable/tree"/>
+
+  <TextView
+    android:id="@+id/burnable_legend_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@+id/game_legend_text"
+    app:layout_constraintStart_toEndOf="@+id/burnable_legend_image"
+    android:text="@string/burnable"
+    />
 
 
 
