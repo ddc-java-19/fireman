@@ -6,17 +6,26 @@
   android:id="@+id/main"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:padding="@dimen/half_dynamic_spacing"
   tools:context=".controller.GameFragment">
+
+  <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="fitXY"
+    android:background="@drawable/fireman_background"
+    android:alpha="0.6"
+    />
+
 
   <edu.cnm.deepdive.fireman.view.TerrainView
     android:id="@+id/terrain"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:layout_margin="@dimen/full_dynamic_spacing"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
+    app:layout_constraintEnd_toEndOf="parent"
+    />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/view_stats"
