@@ -25,7 +25,7 @@ public class TerrainView extends View {
   private static final int BORDER_WIDTH = 32;
   private static final int[] stateDrawableIds = {
       R.drawable.tree,
-      0, // FIXME: 12/7/2024 add fire drawable id
+      R.drawable.flame,
       R.drawable.waves,
       R.drawable.waves,
       0, // FIXME: 12/7/2024 add drawable/color
