@@ -56,7 +56,15 @@
     android:text="@string/icon_color_legend"
     app:layout_constraintTop_toBottomOf="@id/terrain"
     app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/burnable_legend_image"
     />
+
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/guideline"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintGuide_percent=".07"
+    android:orientation="vertical"/>
 
   <ImageView
     android:id="@+id/on_fire_legend_image"
@@ -68,26 +76,33 @@
     android:contentDescription="@string/on_fire_legend_description"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/burnable_legend_image"
-    app:layout_constraintEnd_toStartOf="@+id/on_fire_legend_text"
+    app:layout_constraintEnd_toStartOf="@+id/guideline"
+    app:layout_constraintBottom_toTopOf="@+id/wet_legend_image"
     android:src="@drawable/flame"/>
+
 
   <TextView
     android:id="@+id/on_fire_legend_text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_dynamic_spacing"
-    app:layout_constraintStart_toEndOf="@id/on_fire_legend_image"
+    app:layout_constraintStart_toEndOf="@id/guideline"
     app:layout_constraintTop_toBottomOf="@+id/burnable_legend_text"
+    app:layout_constraintBottom_toTopOf="@+id/wet_legend_text"
     android:text="@string/on_fire_text"/>
 
   <ImageView
     android:id="@+id/wet_legend_image"
-    android:layout_width="wrap_content"
+    android:layout_width="24dp"
     android:layout_height="wrap_content"
+    android:scaleType="fitCenter"
+    android:adjustViewBounds="true"
     android:layout_margin="@dimen/half_dynamic_spacing"
     android:contentDescription="@string/wet_legend_description"
     app:layout_constraintTop_toBottomOf="@+id/on_fire_legend_image"
     app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toTopOf="@+id/unburnable_legend_image"
+    app:layout_constraintEnd_toStartOf="@id/guideline"
     android:src="@drawable/waves"/>
 
   <TextView
@@ -95,17 +110,21 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_dynamic_spacing"
-    app:layout_constraintStart_toEndOf="@+id/wet_legend_image"
+    app:layout_constraintStart_toEndOf="@+id/guideline"
     app:layout_constraintTop_toBottomOf="@+id/on_fire_legend_text"
+    app:layout_constraintBottom_toTopOf="@id/unburnable_legend_text"
     android:text="@string/wet"/>
 
   <ImageView
     android:id="@+id/burnable_legend_image"
-    android:layout_width="wrap_content"
+    android:layout_width="24dp"
     android:layout_height="wrap_content"
+    android:scaleType="fitCenter"
+    android:adjustViewBounds="true"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/game_legend_text"
-    app:layout_constraintEnd_toStartOf="@+id/burnable_legend_text"
+    app:layout_constraintEnd_toStartOf="@+id/guideline"
+    app:layout_constraintBottom_toTopOf="@+id/on_fire_legend_image"
     android:src="@drawable/tree"/>
 
   <TextView
@@ -113,9 +132,53 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:layout_constraintTop_toBottomOf="@+id/game_legend_text"
-    app:layout_constraintStart_toEndOf="@+id/burnable_legend_image"
+    app:layout_constraintStart_toEndOf="@+id/guideline"
+    app:layout_constraintBottom_toTopOf="@id/on_fire_legend_text"
     android:text="@string/burnable"
     />
+
+  <ImageView
+    android:id="@+id/unburnable_legend_image"
+    android:layout_width="24dp"
+    android:layout_height="wrap_content"
+    android:scaleType="fitCenter"
+    android:adjustViewBounds="true"
+    app:layout_constraintTop_toBottomOf="@+id/wet_legend_image"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/guideline"
+    app:layout_constraintBottom_toTopOf="@+id/charred_legend_image"
+    android:src="@drawable/firetruck"/>
+
+  <TextView
+    android:id="@+id/unburnable_legend_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/wet_legend_text"
+    app:layout_constraintStart_toEndOf="@id/guideline"
+    app:layout_constraintBottom_toTopOf="@+id/charred_legend_text"
+    android:text="@string/unburnable_user_legend_text"/>
+
+  <ImageView
+    android:id="@+id/charred_legend_image"
+    android:layout_width="24dp"
+    android:layout_height="wrap_content"
+    android:scaleType="fitCenter"
+    android:adjustViewBounds="true"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/unburnable_legend_image"
+    app:layout_constraintEnd_toStartOf="@id/guideline"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:src="@drawable/unburnable"/>
+
+    <TextView
+      android:id="@+id/charred_legend_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toEndOf="@id/guideline"
+      app:layout_constraintTop_toBottomOf="@id/unburnable_legend_text"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:text="@string/charred_user_legend_text"
+      />
 
 
 
