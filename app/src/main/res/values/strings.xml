@@ -44,6 +44,8 @@
   <string name="burnable">Burnable</string>
   <string name="unburnable_user_legend_text">Firefighters Points</string>
   <string name="charred_user_legend_text">Firestarters Points</string>
+  <string name="quit">Quit</string>
+  <string name="restart">Restart</string>
   <string-array name="night_mode_values">
     <item>@string/night_mode_default</item>
     <item>yes</item>

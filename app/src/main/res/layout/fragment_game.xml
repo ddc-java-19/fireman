@@ -180,8 +180,4 @@
       android:text="@string/charred_user_legend_text"
       />
 
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
