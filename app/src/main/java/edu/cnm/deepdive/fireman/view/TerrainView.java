@@ -28,8 +28,8 @@ public class TerrainView extends View {
       R.drawable.flame,
       R.drawable.waves,
       R.drawable.waves,
-      0, // FIXME: 12/7/2024 add drawable/color
-      0 // FIXME: 12/7/2024 add drawable/color
+      R.drawable.firetruck,
+      R.drawable.unburnable
   };
 
   private static final int[] stateColorIds = {

@@ -21,10 +21,10 @@
   <color name="accent_color">#FF03DAC5</color>
   <color name="unburnable">#FF808080</color>
   <color name="on_fire">#FF880000</color>
-  <color name="wet">#FF000077</color>
-  <color name="soaked">#FF000099</color>
+  <color name="wet">#FF000099</color>
+  <color name="soaked">#FF006099</color>
   <color name="burnable">#FFFFFFFF</color>
-  <color name="charred">#FF000000</color>
+  <color name="charred">#FFFFFFFF</color>
 
 
 </resources>

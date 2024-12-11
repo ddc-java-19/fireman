@@ -70,12 +70,12 @@ public class GameFragment extends Fragment {
               .mapToObj((count) -> String.valueOf(count))
               .toArray(String[]::new);
           // TODO: 12/9/2024  use the strings in the above array to populate textViews in the UI.
-//          binding.BurnableLegendText.setText(stateCountStrings[PlotState.BURNABLE.ordinal()]);
+          binding.burnableLegendText.setText(stateCountStrings[PlotState.BURNABLE.ordinal()]);
           binding.onFireLegendText.setText(stateCountStrings[PlotState.ON_FIRE.ordinal()]);
 //          binding.soakedLegendText.setText(stateCountStrings[PlotState.SOAKED.ordinal()]);
-//          binding.wetLegendText.setText(stateCountStrings[PlotState.WET.ordinal()]);
-//          binding.unburnableLegendText.setText(stateCountStrings[PlotState.UNBURNABLE.ordinal()]);
-//          binding.charredLegendText.setText(stateCountStrings[PlotState.CHARRED.ordinal()]);
+          binding.wetLegendText.setText(stateCountStrings[PlotState.WET.ordinal()]);
+          binding.unburnableLegendText.setText(stateCountStrings[PlotState.UNBURNABLE.ordinal()]);
+          binding.charredLegendText.setText(stateCountStrings[PlotState.CHARRED.ordinal()]);
 
           binding.compassDirections.setImageLevel(game.getWind().ordinal());
         });
