@@ -59,7 +59,6 @@
     app:layout_constraintBottom_toTopOf="@id/burnable_legend_image"
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"
     />
 
   <androidx.constraintlayout.widget.Guideline
@@ -96,7 +95,7 @@
     android:text="@string/on_fire_text"
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"/>
+    />
 
   <ImageView
     android:id="@+id/wet_legend_image"
@@ -124,7 +123,7 @@
     android:text="@string/wet"
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"/>
+    />
 
   <ImageView
     android:id="@+id/burnable_legend_image"
@@ -148,7 +147,7 @@
     android:text="@string/burnable"
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"/>
+    />
 
   <ImageView
     android:id="@+id/unburnable_legend_image"
@@ -173,7 +172,6 @@
     android:text="@string/unburnable_user_legend_text"
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"
     />
 
   <ImageView
@@ -198,7 +196,6 @@
     android:text="@string/charred_user_legend_text"
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"
     />
 <androidx.constraintlayout.widget.Guideline
   android:id="@+id/counter_guideline"

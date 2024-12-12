@@ -42,8 +42,8 @@
   <string name="wet">Wet</string>
   <string name="fireman_game_title">FIREMAN</string>
   <string name="burnable">Burnable</string>
-  <string name="unburnable_user_legend_text">Firefighters Points</string>
-  <string name="charred_user_legend_text">Firestarters Points</string>
+  <string name="unburnable_user_legend_text">Firefighters Score</string>
+  <string name="charred_user_legend_text">Firestarters Score</string>
   <string name="quit">Quit</string>
   <string name="restart">Restart</string>
   <string-array name="night_mode_values">
