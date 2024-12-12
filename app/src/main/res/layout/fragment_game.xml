@@ -16,7 +16,6 @@
     android:alpha="0.4"
     />
 
-
   <edu.cnm.deepdive.fireman.view.TerrainView
     android:id="@+id/terrain"
     android:layout_width="0dp"
@@ -70,7 +69,7 @@
 
   <ImageView
     android:id="@+id/on_fire_legend_image"
-    android:layout_width="24dp"
+    android:layout_width="@dimen/full_static_spacing"
     android:layout_height="wrap_content"
     android:scaleType="fitCenter"
     android:adjustViewBounds="true"
@@ -82,7 +81,6 @@
     app:layout_constraintBottom_toTopOf="@+id/wet_legend_image"
     android:src="@drawable/flame"
     android:background="@color/on_fire"/>
-
 
   <TextView
     android:id="@+id/on_fire_legend_text"
@@ -99,7 +97,7 @@
 
   <ImageView
     android:id="@+id/wet_legend_image"
-    android:layout_width="24dp"
+    android:layout_width="@dimen/full_static_spacing"
     android:layout_height="wrap_content"
     android:scaleType="fitCenter"
     android:adjustViewBounds="true"
@@ -127,7 +125,7 @@
 
   <ImageView
     android:id="@+id/burnable_legend_image"
-    android:layout_width="24dp"
+    android:layout_width="@dimen/full_static_spacing"
     android:layout_height="wrap_content"
     android:scaleType="fitCenter"
     android:adjustViewBounds="true"
@@ -151,7 +149,7 @@
 
   <ImageView
     android:id="@+id/unburnable_legend_image"
-    android:layout_width="24dp"
+    android:layout_width="@dimen/full_static_spacing"
     android:layout_height="wrap_content"
     android:scaleType="fitCenter"
     android:adjustViewBounds="true"
@@ -176,7 +174,7 @@
 
   <ImageView
     android:id="@+id/charred_legend_image"
-    android:layout_width="24dp"
+    android:layout_width="@dimen/full_static_spacing"
     android:layout_height="wrap_content"
     android:scaleType="fitCenter"
     android:adjustViewBounds="true"
@@ -215,7 +213,6 @@
     android:text=""
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"
     />
 
   <TextView
@@ -229,7 +226,6 @@
     android:text=""
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"
     />
   <TextView
     android:id="@+id/wet_counter"
@@ -242,7 +238,6 @@
     android:text=""
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"
     />
 
   <TextView
@@ -256,7 +251,6 @@
     android:text=""
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"
     />
 
   <TextView
@@ -270,7 +264,6 @@
     android:text=""
     android:background="@color/material_dynamic_neutral95"
     android:backgroundTint="#99999999"
-    android:textColor="@color/material_dynamic_neutral100"
     />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
