@@ -13,7 +13,7 @@
     android:layout_height="match_parent"
     android:scaleType="fitXY"
     android:background="@drawable/fireman_background"
-    android:alpha="0.6"
+    android:alpha="0.4"
     />
 
 
@@ -65,7 +65,7 @@
     android:id="@+id/guideline"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:layout_constraintGuide_percent=".07"
+    app:layout_constraintGuide_percent=".1"
     android:orientation="vertical"/>
 
   <ImageView
@@ -272,4 +272,5 @@
     android:backgroundTint="#99999999"
     android:textColor="@color/material_dynamic_neutral100"
     />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,12 +76,11 @@ public class GameFragment extends Fragment implements MenuProvider {
               .mapToObj((count) -> String.valueOf(count))
               .toArray(String[]::new);
           // TODO: 12/9/2024  use the strings in the above array to populate textViews in the UI.
-          binding.burnableLegendText.setText(stateCountStrings[PlotState.BURNABLE.ordinal()]);
-          binding.onFireLegendText.setText(stateCountStrings[PlotState.ON_FIRE.ordinal()]);
-//          binding.soakedLegendText.setText(stateCountStrings[PlotState.SOAKED.ordinal()]);
-          binding.wetLegendText.setText(stateCountStrings[PlotState.WET.ordinal()]);
-          binding.unburnableLegendText.setText(stateCountStrings[PlotState.UNBURNABLE.ordinal()]);
-          binding.charredLegendText.setText(stateCountStrings[PlotState.CHARRED.ordinal()]);
+          binding.burnableCounter.setText(stateCountStrings[PlotState.BURNABLE.ordinal()]);
+          binding.onFireCounter.setText(stateCountStrings[PlotState.ON_FIRE.ordinal()]);
+          binding.wetCounter.setText(stateCountStrings[PlotState.WET.ordinal()]);
+          binding.unburnableCounter.setText(stateCountStrings[PlotState.UNBURNABLE.ordinal()]);
+          binding.charredCounter.setText(stateCountStrings[PlotState.CHARRED.ordinal()]);
 
           binding.compassDirections.setImageLevel(game.getWind().ordinal());
         });

@@ -35,7 +35,7 @@
   <string name="sign_out">Sign out</string>
   <string name="back_to_game">Navigate back to game.</string>
   <string name="wind_direction_description">Wind direction</string>
-  <string name="icon_color_legend">Icon/Color Legend:</string>
+  <string name="icon_color_legend">Icon Legend:</string>
   <string name="on_fire_legend_description">icon for legend.</string>
   <string name="on_fire_text">On Fire</string>
   <string name="wet_legend_description">Wet</string>
