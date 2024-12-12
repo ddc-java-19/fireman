@@ -23,6 +23,8 @@ public class Game {
   @Expose(serialize = false)
   private final Boolean firemanSurrender;
   @Expose(serialize = false)
+  private final Boolean firemanWin;
+  @Expose(serialize = false)
   private final int score;
   @Expose(serialize = false)
   private final boolean turn;
@@ -37,7 +39,9 @@ public class Game {
 
   private User user;
 
-  public Game(String key, Instant started, int moveCount, Instant finished, Boolean firemanSurrender, int score, boolean turn, Wind wind,
+  public Game(String key, Instant started, int moveCount, Instant finished,
+      Boolean firemanSurrender,
+      Boolean firemanWin, int score, boolean turn, Wind wind,
       User arsonist,
       User fireman, List<Plot> plots) {
     this.key = key;
@@ -45,6 +49,7 @@ public class Game {
     this.moveCount = moveCount;
     this.finished = finished;
     this.firemanSurrender = firemanSurrender;
+    this.firemanWin = firemanWin;
     this.score = score;
     this.turn = turn;
     this.wind = wind;
@@ -59,6 +64,7 @@ public class Game {
     this.moveCount = 0;
     this.finished = null;
     this.firemanSurrender = null;
+    this.firemanWin = null;
     this.score = 0;
     this.turn = false;
     this.wind = null;
@@ -89,6 +95,10 @@ public class Game {
 
   public Boolean getFiremanSurrender() {
     return firemanSurrender;
+  }
+
+  public Boolean getFiremanWin() {
+    return firemanWin;
   }
 
   public int getScore() {
@@ -123,11 +133,11 @@ public class Game {
     this.user = user;
   }
 
-  public boolean isUserFireman(){
+  public boolean isUserFireman() {
     return Objects.equals(fireman, user);
   }
 
-  public boolean isUserArsonist(){
+  public boolean isUserArsonist() {
     return Objects.equals(arsonist, user);
   }
 }

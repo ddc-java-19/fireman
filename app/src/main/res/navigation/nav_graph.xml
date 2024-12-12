@@ -15,6 +15,16 @@
       android:id="@+id/navigate_to_stats"
       app:destination="@id/stats_fragment"/>
 
+    <action
+      android:id="@+id/navigate_to_game_over"
+      app:destination="@id/game_over_fragment">
+
+      <argument
+        android:name="message"
+        app:argType="string"/>
+
+    </action>
+
   </fragment>
 
 
@@ -29,5 +39,15 @@
       app:destination="@id/game_fragment"/>
 
   </fragment>
+
+  <dialog
+    android:id="@+id/game_over_fragment"
+    android:name="edu.cnm.deepdive.fireman.controller.GameOverFragment">
+
+    <argument
+      android:name="message"
+      app:argType="string"/>
+
+  </dialog>
 
 </navigation>

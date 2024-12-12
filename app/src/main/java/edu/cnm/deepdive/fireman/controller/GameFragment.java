@@ -30,6 +30,7 @@ public class GameFragment extends Fragment implements MenuProvider {
   private FragmentGameBinding binding;
   private GameViewModel viewModel;
   private boolean finished;
+  private boolean gameOver;
 
 
   @Override
@@ -76,7 +77,6 @@ public class GameFragment extends Fragment implements MenuProvider {
               .mapToInt((state) -> countPlotState(game.getPlots(), state))
               .mapToObj((count) -> String.valueOf(count))
               .toArray(String[]::new);
-          // TODO: 12/9/2024  use the strings in the above array to populate textViews in the UI.
           binding.burnableCounter.setText(stateCountStrings[PlotState.BURNABLE.ordinal()]);
           binding.onFireCounter.setText(stateCountStrings[PlotState.ON_FIRE.ordinal()]);
           binding.wetCounter.setText(stateCountStrings[PlotState.WET.ordinal()]);
@@ -84,6 +84,21 @@ public class GameFragment extends Fragment implements MenuProvider {
           binding.charredCounter.setText(stateCountStrings[PlotState.CHARRED.ordinal()]);
 
           binding.compassDirections.setImageLevel(game.getWind().ordinal());
+
+          if (game.getFinished() != null && !gameOver) {
+            gameOver = true;
+            String outcome = game.getFiremanWin().equals(game.isUserFireman())
+                ? getString(R.string.won_outcome)
+                : getString(R.string.lost_outcome);
+            String message = getString(R.string.game_over_message,
+                outcome,
+                stateCountStrings[PlotState.CHARRED.ordinal()],
+                stateCountStrings[PlotState.UNBURNABLE.ordinal()]);
+            Navigation.findNavController(binding.getRoot())
+                .navigate(GameFragmentDirections.navigateToGameOver(message));
+          } else{
+            gameOver = false;
+          }
 
           finished = game.getFinished() != null;
           requireActivity().invalidateOptionsMenu();
@@ -113,11 +128,11 @@ public class GameFragment extends Fragment implements MenuProvider {
   public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
     boolean handled = true;
     int id = menuItem.getItemId();
-    if(id == R.id.quit){
+    if (id == R.id.quit) {
       viewModel.surrender();
-    }else if(id == R.id.restart){
+    } else if (id == R.id.restart) {
       viewModel.startGame(); // remember, this w.ill return the existing game if there is one in progress
-    }else{
+    } else {
       handled = false;
     }
     return handled;

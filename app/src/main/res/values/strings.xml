@@ -46,6 +46,10 @@
   <string name="charred_user_legend_text">Firestarters Score</string>
   <string name="quit">Quit</string>
   <string name="restart">Restart</string>
+  <string name="game_over">Game Over</string>
+  <string name="won_outcome">won</string>
+  <string name="lost_outcome">lost</string>
+  <string name="game_over_message">You have %1$s the game! Total plots charred = %2$s. Total plots unburnable = %3$s.</string>
   <string-array name="night_mode_values">
     <item>@string/night_mode_default</item>
     <item>yes</item>
