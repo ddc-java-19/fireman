@@ -58,7 +58,7 @@ public class GameViewModel extends ViewModel implements DefaultLifecycleObserver
     throwable.setValue(null);
     gameService.surrender()
         .subscribe(
-            () -> game.postValue(null),
+            game::postValue,
             this::postThrowable,
             pending
         );

@@ -123,7 +123,7 @@ public class GameService implements AbstractGameService {
           if (game.isCompleted()) {
             throw new GameOverException("Game is completed");
           }
-          boolean firemanSurrender = game.getFireman().equals(currentUser);
+          boolean firemanSurrender = !game.getArsonist().equals(currentUser);
           game.setFiremanSurrender(firemanSurrender);
           game.setFiremanWin(!firemanSurrender);
           game.setFinished(Instant.now());

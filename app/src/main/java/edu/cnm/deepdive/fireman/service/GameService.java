@@ -65,11 +65,11 @@ public class GameService {
         });
   }
 
-  public Completable surrender(){
+  public Single<Game> surrender(){
     return signInService
         .refreshToken()
         .observeOn(Schedulers.io())
-        .flatMapCompletable((token) -> webServiceProxy.surrender(game.getKey(), token));
+        .flatMap((token) -> webServiceProxy.surrender(game.getKey(), token));
   }
 
 

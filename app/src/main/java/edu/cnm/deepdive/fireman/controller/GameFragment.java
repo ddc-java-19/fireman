@@ -29,6 +29,7 @@ public class GameFragment extends Fragment implements MenuProvider {
 
   private FragmentGameBinding binding;
   private GameViewModel viewModel;
+  private boolean finished;
 
 
   @Override
@@ -83,6 +84,9 @@ public class GameFragment extends Fragment implements MenuProvider {
           binding.charredCounter.setText(stateCountStrings[PlotState.CHARRED.ordinal()]);
 
           binding.compassDirections.setImageLevel(game.getWind().ordinal());
+
+          finished = game.getFinished() != null;
+          requireActivity().invalidateOptionsMenu();
         });
   }
 
@@ -96,6 +100,8 @@ public class GameFragment extends Fragment implements MenuProvider {
   @Override
   public void onPrepareMenu(@NonNull Menu menu) {
     MenuProvider.super.onPrepareMenu(menu);
+    menu.findItem(R.id.quit).setVisible(!finished);
+    menu.findItem(R.id.restart).setVisible(finished);
   }
 
   @Override

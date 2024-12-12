@@ -12,6 +12,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
@@ -29,7 +31,7 @@ public class GameController {
 
   private static final long TIMEOUT = 15000L;
   private static final int POOL_SIZE= 4;
-  private static final long INTERVAL = 3000L;
+  private static final long INTERVAL = 1000L;
 
   private final AbstractGameService gameService;
   private final AbstractUserService userService;
@@ -79,7 +81,7 @@ public class GameController {
     return gameService.move(key, move, userService.getCurrent());
   }
 
-  @PostMapping(path = "/games/{key}/surrender")
+  @PostMapping(path = "/{key}/surrender", produces = MediaType.APPLICATION_JSON_VALUE)
   public Game surrender(@PathVariable UUID key) {
   return gameService.surrender(key, userService.getCurrent());
   }

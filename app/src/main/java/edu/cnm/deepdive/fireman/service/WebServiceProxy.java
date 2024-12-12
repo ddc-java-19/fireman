@@ -20,7 +20,7 @@ public interface WebServiceProxy {
   Single<Game> getGame(@Path("key") String key, @Header("Authorization") String bearerToken);
 
   @POST("games/{key}/surrender")
-  Completable surrender(@Path("key") String key, @Header("Authorization") String bearerToken);
+  Single<Game> surrender(@Path("key") String key, @Header("Authorization") String bearerToken);
 
   @POST("games/{key}/moves")
   Single<Game> move(@Path("key") String key, @Body Move move, @Header("Authorization") String bearerToken);
