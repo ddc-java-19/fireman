@@ -2,14 +2,19 @@ package edu.cnm.deepdive.fireman.controller;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import edu.cnm.deepdive.fireman.R;
 import edu.cnm.deepdive.fireman.databinding.FragmentGameBinding;
 import edu.cnm.deepdive.fireman.model.domain.Plot;
 import edu.cnm.deepdive.fireman.model.domain.PlotState;
@@ -17,7 +22,7 @@ import edu.cnm.deepdive.fireman.viewmodel.GameViewModel;
 import java.util.Arrays;
 import java.util.List;
 
-public class GameFragment extends Fragment {
+public class GameFragment extends Fragment implements MenuProvider {
 
 
   private static final String TAG = GameFragment.class.getSimpleName();
@@ -29,6 +34,7 @@ public class GameFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    requireActivity().addMenuProvider(this);
   }
 
 
@@ -88,4 +94,27 @@ public class GameFragment extends Fragment {
         .count();
   }
 
+  @Override
+  public void onPrepareMenu(@NonNull Menu menu) {
+    MenuProvider.super.onPrepareMenu(menu);
+  }
+
+  @Override
+  public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+    menuInflater.inflate(R.menu.game_options, menu);
+  }
+
+  @Override
+  public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+    boolean handled = true;
+    int id = menuItem.getItemId();
+    if(id == R.id.quit){
+      viewModel.surrender();
+    }else if(id == R.id.restart){
+      viewModel.startGame(); // remember, this w.ill return the existing game if there is one in progress
+    }else{
+      handled = false;
+    }
+    return handled;
+  }
 }

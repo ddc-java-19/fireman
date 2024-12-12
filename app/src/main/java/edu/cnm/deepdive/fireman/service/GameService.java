@@ -3,6 +3,7 @@ package edu.cnm.deepdive.fireman.service;
 import edu.cnm.deepdive.fireman.model.domain.Game;
 import edu.cnm.deepdive.fireman.model.domain.Move;
 import edu.cnm.deepdive.fireman.model.domain.User;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import javax.inject.Inject;
@@ -62,6 +63,13 @@ public class GameService {
           game.setUser(this.game.getUser());
           this.game = game;
         });
+  }
+
+  public Completable surrender(){
+    return signInService
+        .refreshToken()
+        .observeOn(Schedulers.io())
+        .flatMapCompletable((token) -> webServiceProxy.surrender(game.getKey(), token));
   }
 
 

@@ -54,6 +54,16 @@ public class GameViewModel extends ViewModel implements DefaultLifecycleObserver
         );
   }
 
+  public void surrender(){
+    throwable.setValue(null);
+    gameService.surrender()
+        .subscribe(
+            () -> game.postValue(null),
+            this::postThrowable,
+            pending
+        );
+  }
+
 
   @Override
   public void onStop(@NonNull LifecycleOwner owner) {
